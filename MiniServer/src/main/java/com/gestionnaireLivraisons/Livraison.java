@@ -6,13 +6,18 @@ import java.util.ArrayList;
  * La classe qui modélise une livraison.
  */
 public class Livraison
-        // TODO : À compléter/modifier
+// TODO : À compléter/modifier
 {
     // Les données membres statiques
     // TODO : À compléter/modifier
 
     // Les attributs d'instance
     // TODO : À compléter/modifier
+    int id;
+    Priorite priorite;
+    int tentative = 0;
+    int lot;
+    Statut statut = Statut.EN_ATTENTE;
 
     /**
      * Constructeur d'une livraison.
