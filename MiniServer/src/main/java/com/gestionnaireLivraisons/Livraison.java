@@ -21,6 +21,7 @@ public class Livraison
     int tentative = 0;
     int lot;
     Statut statut = Statut.EN_ATTENTE;
+    static int compteurID = 1;
 
     /**
      * Constructeur d'une livraison.
@@ -29,14 +30,23 @@ public class Livraison
      * @param lot      Le lot auquel cette livraison appartient.
      */
     // TODO : À compléter/modifier
+    public Livraison(Priorite priorite, int lot) {
+        this.priorite = priorite;
+        this.lot = lot;
+        this.id = prochainID();
+        this.tentative = 1;
+
+    }
 
     /**
      * Produit un nouvel ID pour la Livraison
      */
     private static int prochainID() {
         // TODO : À compléter/modifier
+        compteurID++;
+
         System.err.println("Méthode Livraison::prochainID non implémentée");
-        return 0;
+        return compteurID;
     }
 
     /**
