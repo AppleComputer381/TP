@@ -2,6 +2,8 @@ package com.gestionnaireLivraisons;
 
 import java.util.ArrayList;
 
+import javax.lang.model.util.ElementScanner14;
+
 /**
  * La classe qui modélise une livraison.
  */
@@ -10,6 +12,7 @@ public class Livraison
 {
     // Les données membres statiques
     // TODO : À compléter/modifier
+    int MAX_TENTATIVES = 3;
 
     // Les attributs d'instance
     // TODO : À compléter/modifier
@@ -89,9 +92,17 @@ public class Livraison
      * Ajoute UN au numéro de tentative pour cette livraison.
      *
      */
-    public void nouvelleTentative() {
-        // TODO : À compléter/modifier
-        System.err.println("Méthode Livraison::nouvelleTentative non implémentée");
+    public boolean nouvelleTentative() {
+        if (MAX_TENTATIVES == 0) {
+            return false;
+
+        } else {
+            tentative++;
+            MAX_TENTATIVES--;
+            return true;
+        }
+
+        // System.err.println("Méthode Livraison::nouvelleTentative non implémentée");
     }
 
     /**
