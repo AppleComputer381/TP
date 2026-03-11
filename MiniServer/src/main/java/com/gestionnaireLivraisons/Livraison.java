@@ -34,7 +34,6 @@ public class Livraison
         this.priorite = priorite;
         this.lot = lot;
         this.id = prochainID();
-        this.tentative = 1;
 
     }
 
@@ -134,7 +133,10 @@ public class Livraison
     @Override
     public String toString() {
         // TODO : À compléter/modifier
-        System.err.println("Méthode Livraison::toString non implémentée");
+        System.out.println("la livraison d'identifiant: " + this.id + " appartenant au lot: " + this.lot
+                + " de priorité: "
+                + this.priorite + " avec le statut: " + this.statut + " a été tenté d'etre livré: " + this.tentative);
+        // System.err.println("Méthode Livraison::toString non implémentée");
         return null;
     }
 
