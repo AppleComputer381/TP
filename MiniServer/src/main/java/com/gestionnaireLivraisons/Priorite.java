@@ -2,7 +2,7 @@ package com.gestionnaireLivraisons;
 
 public enum Priorite {
     NORMALE,
-    URGENTE;
+    URGENT;
 }
 /**
  * L'énumération pour la priorité des livraisons

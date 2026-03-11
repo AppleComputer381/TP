@@ -147,4 +147,26 @@ public class Livraison
      * @return Le résultat de la comparaison au sens de l'interface Comparable<T>.
      */
     // TODO : À compléter/modifier
+    public int compareTo(Object autreLivraison){
+        if (this.lot < autreLivraison.lot){
+            return -1;
+        }else if (this.lot < autreLivraison.lot){
+            return 1
+        }else {
+            if (this.priorite == URGENT && autreLivraison== NORMALE){
+                return -1;
+            }else if (this.priorite==NORMAL && autreLivraison == URGENT){
+                return 1;
+            }else{
+                if( this.nbTentatives > autreLivraison){
+                    return -1;
+                }else if (this.nbTentatives < aitreLivraison){
+                    return 1;
+                }else{
+                    return 0;
+                }
+            }
+        }
+    }
+
 }
