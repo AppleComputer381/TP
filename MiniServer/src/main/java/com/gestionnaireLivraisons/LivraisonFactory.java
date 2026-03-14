@@ -66,9 +66,15 @@ public class LivraisonFactory {
      */
     // new//  FilePrioriteLivraisons();
     public static FilePrioriteLivraisons populateFileLivraisons() {
+        FilePrioriteLivraisons filePrioriteLivraisons = new FilePrioriteLivraisons();
+        for(String data: dataLivraisons){
+            String[] dataSplit = data.split(":");
+            Livraison Livraison = new Livraison(Integer.parseInt(dataSplit[0]), Priorite.valueOf(dataSplit[1]));
+            filePrioriteLivraisons.ajouter(Livraison);
+        }
+        return filePrioriteLivraisons;
         // TODO : À compléter/modifier
-        System.err.println("Méthode LivraisonFactory::populateFileLivraisons non implémentée");
-        return null;
+        //System.err.println("Méthode LivraisonFactory::populateFileLivraisons non implémentée");
     }
 
     /**

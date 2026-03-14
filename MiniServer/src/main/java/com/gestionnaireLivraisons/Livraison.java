@@ -30,7 +30,7 @@ public class Livraison implements Comparable<Livraison>
      * @param lot      Le lot auquel cette livraison appartient.
      */
     // TODO : À compléter/modifier
-    public Livraison(Priorite priorite, int lot) {
+    public Livraison(int lot, Priorite priorite) {
         this.priorite = priorite;
         this.lot = lot;
         this.id = prochainID();
