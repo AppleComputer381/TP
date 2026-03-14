@@ -16,7 +16,10 @@ public class FilePrioriteLivraisons {
      * Construit une file de priorité.
      */
     // TODO : À compléter/modifier
-
+    PriorityQueue<Livraison> file;
+    public FilePrioriteLivraisons(){
+        file = new PriorityQueue<>();
+    }
     /**
      * Retire et retourne l'élément le plus prioritaire de la file.
      *
@@ -24,8 +27,10 @@ public class FilePrioriteLivraisons {
      */
     public Livraison retirer() {
         // TODO : À compléter/modifier
-        System.err.println("Méthode FilePrioriteLivraisons::retirer() non implémentée");
-        return null;
+        //System.err.println("Méthode FilePrioriteLivraisons::retirer() non implémentée");
+        Livraison firstout = file.peek();
+        file.remove();
+        return firstout;
     }
 
     /**
@@ -35,7 +40,8 @@ public class FilePrioriteLivraisons {
      */
     public void ajouter(Livraison element) {
         // TODO : À compléter/modifier
-        System.err.println("Méthode FilePrioriteLivraisons::ajouter non implémentée");
+        //System.err.println("Méthode FilePrioriteLivraisons::ajouter non implémentée");
+        file.add(element);
     }
 
     /**
@@ -44,8 +50,12 @@ public class FilePrioriteLivraisons {
      * @param elements L'ensemble des éléments à ajouter à la file.
      */
     public void ajouterTout(Iterable<Livraison> elements) {
+        
+        for(Livraison element: elements){
+            file.add(element);
+        }
         // TODO : À compléter/modifier
-        System.err.println("Méthode FilePrioriteLivraisons::ajouterTout non implémentée");
+        //System.err.println("Méthode FilePrioriteLivraisons::ajouterTout non implémentée");
     }
 
     /**
@@ -55,8 +65,8 @@ public class FilePrioriteLivraisons {
      */
     public boolean estVide() {
         // TODO : À compléter/modifier
-        System.err.println("Méthode FilePrioriteLivraisons::estVide non implémentée");
-        return false;
+        
+        return file.isEmpty();
     }
 
     /**
@@ -66,8 +76,7 @@ public class FilePrioriteLivraisons {
      */
     public int taille() {
         // TODO : À compléter/modifier
-        System.err.println("Méthode FilePrioriteLivraisons::taille non implémentée");
-        return 0;
+        return file.size();
     }
 
     /**
@@ -76,6 +85,9 @@ public class FilePrioriteLivraisons {
      */
     public void afficher() {
         // TODO : À compléter/modifier
-        System.err.println("Méthode FilePrioriteLivraisons::afficher non implémentée");
+        //System.err.println("Méthode FilePrioriteLivraisons::afficher non implémentée");
+        for (Livraison element: file){
+            System.out.println(element);
+        }
     }
 }

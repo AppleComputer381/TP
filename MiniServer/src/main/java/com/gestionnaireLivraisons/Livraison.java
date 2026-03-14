@@ -7,7 +7,7 @@ import javax.lang.model.util.ElementScanner14;
 /**
  * La classe qui modélise une livraison.
  */
-public class Livraison
+public class Livraison implements Comparable<Livraison>
 // TODO : À compléter/modifier
 {
     // Les données membres statiques
@@ -147,20 +147,20 @@ public class Livraison
      * @return Le résultat de la comparaison au sens de l'interface Comparable<T>.
      */
     // TODO : À compléter/modifier
-    public int compareTo(Object autreLivraison){
+    public int compareTo(Livraison autreLivraison){
         if (this.lot < autreLivraison.lot){
             return -1;
-        }else if (this.lot < autreLivraison.lot){
-            return 1
+        }else if (this.lot > autreLivraison.lot){
+            return 1;
         }else {
-            if (this.priorite == URGENT && autreLivraison== NORMALE){
+            if (this.priorite == Priorite.URGENT && autreLivraison.priorite== Priorite.NORMALE){
                 return -1;
-            }else if (this.priorite==NORMAL && autreLivraison == URGENT){
+            }else if (this.priorite==Priorite.NORMALE && autreLivraison.priorite == Priorite.URGENT){
                 return 1;
             }else{
-                if( this.nbTentatives > autreLivraison){
+                if( this.tentative > autreLivraison.tentative){
                     return -1;
-                }else if (this.nbTentatives < aitreLivraison){
+                }else if (this.tentative < autreLivraison.tentative){
                     return 1;
                 }else{
                     return 0;
