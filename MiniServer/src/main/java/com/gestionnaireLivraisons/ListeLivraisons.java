@@ -9,6 +9,12 @@ import java.util.ListIterator;
 public class ListeLivraisons implements IListeLivraisons {
     // Les livraisons stockées dans une ArrayList
     // TODO : À compléter/modifier
+    private ArrayList<Livraison> listeLivraisons;
+
+    public ListeLivraisons() {
+        this.listeLivraisons = new ArrayList<Livraison>();
+
+    };
 
     /**
      * Ajout d'une livraison à la liste de livraisons.
@@ -16,8 +22,7 @@ public class ListeLivraisons implements IListeLivraisons {
      * @param livraison La livraison à ajouter.
      */
     public void ajouter(Livraison livraison) {
-        // TODO : À compléter/modifier
-        System.err.println("Méthode ListeLivraisons::ajouter non implémentée");
+        this.listeLivraisons.add(livraison);
     }
 
     /**
@@ -27,8 +32,12 @@ public class ListeLivraisons implements IListeLivraisons {
      * @return La livraison supprimée ou null si non trouvée.
      */
     public Livraison supprimer(int idLivraison) {
-        // TODO : À compléter/modifier
-        System.err.println("Méthode ListeLivraisons::supprimer non implémentée");
+        for (Livraison livraison : listeLivraisons) {
+            if (livraison.getId() == idLivraison) {
+                listeLivraisons.remove(livraison);
+                return livraison;
+            }
+        }
         return null;
     }
 
@@ -39,8 +48,12 @@ public class ListeLivraisons implements IListeLivraisons {
      * @return La livraison trouvée ou null si non trouvée.
      */
     public Livraison rechercher(int idLivraison) {
-        // TODO : À compléter/modifier
-        System.err.println("Méthode ListeLivraisons::rechercher non implémentée");
+        for (Livraison livraison : listeLivraisons) {
+            if (livraison.getId() == idLivraison) {
+                return livraison;
+            }
+        }
+
         return null;
     }
 
@@ -49,8 +62,7 @@ public class ListeLivraisons implements IListeLivraisons {
      *
      */
     public void vider() {
-        // TODO : À compléter/modifier
-        System.err.println("Méthode ListeLivraisons::vider non implémentée");
+        this.listeLivraisons.clear();
     }
 
     /**
@@ -59,9 +71,7 @@ public class ListeLivraisons implements IListeLivraisons {
      * @return true si la liste est vide, false sinon.
      */
     public boolean estVide() {
-        // TODO : À compléter/modifier
-        System.err.println("Méthode ListeLivraisons::estVide non implémentée");
-        return false;
+        return this.listeLivraisons.isEmpty();
     }
 
     /**
@@ -70,9 +80,7 @@ public class ListeLivraisons implements IListeLivraisons {
      * @return Le nombre de livraisons.
      */
     public int taille() {
-        // TODO : À compléter/modifier
-        System.err.println("Méthode ListeLivraisons::taille non implémentée");
-        return 0;
+        return this.listeLivraisons.size();
     }
 
     /**
@@ -82,9 +90,7 @@ public class ListeLivraisons implements IListeLivraisons {
      */
     @Override
     public ListIterator<Livraison> iterator() {
-        // TODO : À compléter/modifier
-        System.err.println("Méthode ListeLivraisons::iterator non implémentée");
-        return null;
+        return this.listeLivraisons.listIterator();
     }
 
     /**
@@ -94,8 +100,11 @@ public class ListeLivraisons implements IListeLivraisons {
      * @return L'indice de la livraison trouvée ou -1 si non trouvée.
      */
     private int chercher(int idLivraison) {
-        // TODO : À compléter/modifier
-        System.err.println("Méthode ListeLivraisons::chercher non implémentée");
-        return 0;
+        for (int i = 0; i < this.taille(); i++) {
+            if (this.listeLivraisons.get(i).getId() == idLivraison) {
+                return i;
+            }
+        }
+        return -1;
     }
 }
