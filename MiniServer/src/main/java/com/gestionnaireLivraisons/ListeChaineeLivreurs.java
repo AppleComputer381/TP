@@ -1,6 +1,5 @@
 package com.gestionnaireLivraisons;
 
-
 public class ListeChaineeLivreurs implements IListeChaineeLivreurs {
     private Noeud tete;
     private Noeud dernier;
@@ -10,6 +9,11 @@ public class ListeChaineeLivreurs implements IListeChaineeLivreurs {
      * Constructeur
      */
     // TODO : À compléter/modifier
+    public ListeChaineeLivreurs() {
+        this.tete = null;
+        this.dernier = null;
+        this.nbreElements = 0;
+    }
 
     /**
      * Ajoute un objet Livreur à la fin de la liste
@@ -19,7 +23,19 @@ public class ListeChaineeLivreurs implements IListeChaineeLivreurs {
      */
     @Override
     public void ajouter(Livreur unLivreur) throws ListeChaineeException {
-        // TODO : À compléter/modifier
+        if (this.rechercher(unLivreur.getId()) != null) {
+            throw new ListeChaineeException("Le livreur est déjà dans la liste");
+        } else {
+            if (this.tete == null) {
+                this.tete = new Noeud(unLivreur);
+                this.dernier = this.tete;
+            } else {
+                this.dernier.suivant = new Noeud(unLivreur);
+                this.dernier = this.dernier.suivant;
+            }
+            this.nbreElements++;
+        }
+
     }
 
     /**
@@ -30,7 +46,31 @@ public class ListeChaineeLivreurs implements IListeChaineeLivreurs {
      */
     @Override
     public void supprimer(int idLivreur) throws ListeChaineeException {
-        // TODO : À compléter/modifier
+
+        if (this.tete == null) {
+            throw new ListeChaineeException("La liste est vide");
+        }
+        if (this.tete.livreur.getId() == idLivreur) {
+            this.tete = this.tete.suivant;
+            this.nbreElements--;
+            return;
+        } else {
+            Noeud precedent = this.tete;
+            Noeud temp = this.tete.suivant;
+            while (temp != null) {
+                if (temp.livreur.getId() == idLivreur) {
+                    precedent.suivant = temp.suivant;
+                    this.nbreElements--;
+                    return;
+                } else {
+                    precedent = temp;
+                    temp = temp.suivant;
+                }
+            }
+
+            throw new ListeChaineeException("Livreur non présent dans la liste.")
+        }
+
     }
 
     /**
