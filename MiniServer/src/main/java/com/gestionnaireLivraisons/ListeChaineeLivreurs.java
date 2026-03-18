@@ -68,7 +68,7 @@ public class ListeChaineeLivreurs implements IListeChaineeLivreurs {
                 }
             }
 
-            throw new ListeChaineeException("Livreur non présent dans la liste.")
+            throw new ListeChaineeException("Livreur non présent dans la liste.");
         }
 
     }
@@ -81,7 +81,26 @@ public class ListeChaineeLivreurs implements IListeChaineeLivreurs {
      */
     @Override
     public Livreur rechercher(int idLivreur) {
-        // TODO : À compléter/modifier
+        if (this.tete == null) {
+            return null;
+            // si il n'y a qu'un seul element
+        } else if (this.tete == this.dernier) {
+            if (this.tete.livreur.getId() == idLivreur) {
+                return this.tete.livreur;
+            } else {
+                return null;
+            }
+        } else {
+            Noeud temp = this.tete;
+            while (temp != null) {
+                if (temp.livreur.getId() == idLivreur) {
+                    return temp.livreur;
+                } else {
+                    temp = temp.suivant;
+                }
+            }
+        }
+
         return null;
     }
 
@@ -92,8 +111,7 @@ public class ListeChaineeLivreurs implements IListeChaineeLivreurs {
      */
     @Override
     public int taille() {
-        // TODO : À compléter/modifier
-        return 0;
+        return nbreElements;
     }
 
     /**
@@ -102,8 +120,15 @@ public class ListeChaineeLivreurs implements IListeChaineeLivreurs {
      * @return Le tableau de livreurs.
      */
     public Livreur[] toArray() {
-        // TODO : À compléter/modifier
-        return null;
+        Livreur[] tab = new Livreur[this.nbreElements];
+        int i = 0;
+        Noeud temp = this.tete;
+        while (i < this.nbreElements) {
+            tab[i] = temp.livreur;
+            i++;
+            temp = temp.suivant;
+        }
+        return tab;
     }
 
     /**
