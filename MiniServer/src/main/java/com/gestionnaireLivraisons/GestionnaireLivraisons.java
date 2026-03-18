@@ -236,9 +236,25 @@ public class GestionnaireLivraisons implements GestionnaireEvenement {
      * @return La chaîne à renvoyer au client.
      */
     private String traiterDELIVERED(Evenement evenement) {
-        // TODO : À compléter/modifier
-        System.err.println("Méthode GestionnaireLivraisons::traiterDELIVERED non implémentée");
-        return "";
+        Livreur livreur = this.livreursAuthentifies.get(evenement.getSource());
+        if (livreur != null) {
+            Arguments arguments = new Arguments(evenement);
+            String argId = arguments.extraireArgumentSuivant();
+            int idLivraison = Integer.parseInt(argId);
+            Livraison livraison = livreur.rechercherLivraisonEnCours(idLivraison);
+            if (livraison != null) {
+                livreur.supprimerLivraisonEnCours(idLivraison);
+                livreur.ajouterLivraisonEffectuee(livraison);
+                return "DELIVERED";
+
+            } else {
+                return "BAD_ARGUMENT_ERROR";
+            }
+
+        } else {
+            return "AUTHENTICATION_ERROR";
+        }
+
     }
 
     /**
