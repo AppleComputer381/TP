@@ -3,4 +3,20 @@ package com.gestionnaireLivraisons;
 /**
  * La classe de livreur en camion
  */
-// TODO : À compléter/modifier
+public class LivreurCamion extends Livreur {
+
+    // Constructeur
+    public LivreurCamion(int id, String nom) {
+        super(id, nom);
+    }
+
+    @Override
+    public int capaciteLivraison() {
+        return 10;
+    }
+
+    @Override
+    public double calculerRevenu() {
+        return 10.0 * this.nbLivraisonsEffectuees();
+    }
+}

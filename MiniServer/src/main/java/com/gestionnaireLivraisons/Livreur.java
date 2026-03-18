@@ -9,7 +9,10 @@ import java.util.Random;
  */
 public abstract class Livreur {
     // Les attrbuts d'un livreur
-    // TODO : À compléter/modifier
+    private int id;
+    private String nom;
+    private ListeLivraisons livraisonsEnCours;
+    private ListeLivraisons livraisonsEffectuees;
 
     /**
      * Construit un nouveau livreur.
@@ -17,7 +20,12 @@ public abstract class Livreur {
      * @param id  L'id du nouveau livreur.
      * @param nom Le nom du nouveau livreur.
      */
-    // TODO : À compléter/modifier
+    public Livreur(int id, String nom) {
+        this.id = id;
+        this.nom = nom;
+        this.livraisonsEnCours = new ListeLivraisons();
+        this.livraisonsEffectuees = new ListeLivraisons();
+    }
 
     /**
      * L'accesseur pour l'id du livreur.
@@ -47,9 +55,7 @@ public abstract class Livreur {
      * @return true si oui, false sinon.
      */
     public boolean aDesLivraisonsEnCours() {
-        // TODO : À compléter/modifier
-        System.err.println("Méthode Livreur::aDesLivraisonsEnCours non implémentée");
-        return false;
+        return this.livraisonsEnCours.estVide();
     }
 
     /**
@@ -58,8 +64,7 @@ public abstract class Livreur {
      * @param livraison La livraison à ajouter.
      */
     public void ajouterLivraisonEnCours(Livraison livraison) {
-        // TODO : À compléter/modifier
-        System.err.println("Méthode Livreur::ajouterLivraisonEnCours non implémentée");
+        this.livraisonsEnCours.ajouter(livraison);
     }
 
     /**
@@ -68,8 +73,7 @@ public abstract class Livreur {
      * @param livraison La livraison à ajouter.
      */
     public void ajouterLivraisonEffectuee(Livraison livraison) {
-        // TODO : À compléter/modifier
-        System.err.println("Méthode Livreur::ajouterLivraisonEffectuee non implémentée");
+        this.livraisonsEffectuees.ajouter(livraison);
     }
 
     /**
@@ -79,9 +83,8 @@ public abstract class Livreur {
      * @return La livraison supprimée ou null si non trouvée.
      */
     public Livraison supprimerLivraisonEnCours(int idLivraison) {
-        // TODO : À compléter/modifier
-        System.err.println("Méthode Livreur::supprimerLivraisonEnCours non implémentée");
-        return null;
+
+        return this.livraisonsEnCours.supprimer(idLivraison);
     }
 
     /**
@@ -90,9 +93,9 @@ public abstract class Livreur {
      * @return La liste des livraisons en cours avant suppressions.
      */
     public IListeLivraisons supprimerToutesLesLivraisons() {
-        // TODO : À compléter/modifier
-        System.err.println("Méthode Livreur::supprimerToutesLesLivraisons non implémentée");
-        return null;
+        ListeLivraisons liste = this.livraisonsEnCours;
+        this.livraisonsEnCours.vider();
+        return liste;
     }
 
     /**
@@ -102,9 +105,7 @@ public abstract class Livreur {
      * @return La livraison si trouvée, null sinon.
      */
     public Livraison rechercherLivraisonEnCours(int idLivraison) {
-        // TODO : À compléter/modifier
-        System.err.println("Méthode Livreur::rechercherLivraisonEnCours non implémentée");
-        return null;
+        return this.livraisonsEnCours.rechercher(idLivraison);
     }
 
     /**
@@ -131,7 +132,6 @@ public abstract class Livreur {
         System.err.println("Méthode Livreur::nbLivraisonsEnCours non implémentée");
         return 0;
     }
-
 
     /**
      * Retourne un itérateur sur les livraisons en cours de ce livreur.

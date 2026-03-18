@@ -30,7 +30,7 @@ public class Livraison implements Comparable<Livraison>
      * @param lot      Le lot auquel cette livraison appartient.
      */
     // TODO : À compléter/modifier
-    public Livraison(int lot, Priorite priorite) {
+    public Livraison(Priorite priorite, int lot) {
         this.priorite = priorite;
         this.lot = lot;
         this.id = prochainID();
@@ -147,22 +147,22 @@ public class Livraison implements Comparable<Livraison>
      * @return Le résultat de la comparaison au sens de l'interface Comparable<T>.
      */
     // TODO : À compléter/modifier
-    public int compareTo(Livraison autreLivraison){
-        if (this.lot < autreLivraison.lot){
+    public int compareTo(Livraison autreLivraison) {
+        if (this.lot < autreLivraison.lot) {
             return -1;
-        }else if (this.lot > autreLivraison.lot){
+        } else if (this.lot > autreLivraison.lot) {
             return 1;
-        }else {
-            if (this.priorite == Priorite.URGENT && autreLivraison.priorite== Priorite.NORMALE){
+        } else {
+            if (this.priorite == Priorite.URGENT && autreLivraison.priorite == Priorite.NORMALE) {
                 return -1;
-            }else if (this.priorite==Priorite.NORMALE && autreLivraison.priorite == Priorite.URGENT){
+            } else if (this.priorite == Priorite.NORMALE && autreLivraison.priorite == Priorite.URGENT) {
                 return 1;
-            }else{
-                if( this.tentative > autreLivraison.tentative){
+            } else {
+                if (this.tentative > autreLivraison.tentative) {
                     return -1;
-                }else if (this.tentative < autreLivraison.tentative){
+                } else if (this.tentative < autreLivraison.tentative) {
                     return 1;
-                }else{
+                } else {
                     return 0;
                 }
             }
