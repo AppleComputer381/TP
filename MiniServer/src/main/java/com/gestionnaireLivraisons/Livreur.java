@@ -42,9 +42,7 @@ public abstract class Livreur {
      * @return Le nom de ce livreur.
      */
     public String getNom() {
-        // TODO : À compléter/modifier
-        System.err.println("Méthode Livreur::getNom non implémentée");
-        return null;
+        return this.nom;
     }
 
     /**
@@ -126,7 +124,6 @@ public abstract class Livreur {
      * @return Le nombre de livraisons en cours.
      */
     public int nbLivraisonsEnCours() {
-        // TODO : À compléter/modifier
         return this.livraisonsEnCours.taille();
     }
 
@@ -136,7 +133,6 @@ public abstract class Livreur {
      * @return L'itérateur.
      */
     public Iterator<Livraison> donneIterateurLivraisonsEnCours() {
-        // TODO : À compléter/modifier
         return this.livraisonsEnCours.iterator();
     }
 
@@ -146,8 +142,6 @@ public abstract class Livreur {
      * @return Le nombre de livraisons.
      */
     public int nbLivraisonsEffectuees() {
-        // TODO : À compléter/modifier
-        System.err.println("Méthode Livreur::nbLivraisonsEffectuees non implémentée");
-        return 0;
+        return this.livraisonsEffectuees.taille();
     }
 }

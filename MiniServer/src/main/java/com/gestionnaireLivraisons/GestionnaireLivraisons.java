@@ -205,9 +205,28 @@ public class GestionnaireLivraisons implements GestionnaireEvenement {
      * @return La chaîne à renvoyer au client.
      */
     private String traiterGET(Evenement evenement) {
-        // TODO : À compléter/modifier
-        System.err.println("Méthode GestionnaireLivraisons::traiterGET non implémentée");
-        return "";
+        Livreur livreur = this.livreursAuthentifies.get(evenement.getSource());
+        if (livreur != null) {
+            int capaciteLivraison = livreur.capaciteLivraison();
+            int nbLivraisonsEnCours = livreur.nbLivraisonsEnCours();
+            if (nbLivraisonsEnCours < capaciteLivraison) {
+                while (nbLivraisonsEnCours < capaciteLivraison && !this.livraisonsAEffectuer.estVide()) {
+                    livreur.ajouterLivraisonEnCours(this.livraisonsAEffectuer.retirer());
+                    nbLivraisonsEnCours++;
+                }
+            }
+            String reponse = "";
+            Iterator<Livraison> it = livreur.donneIterateurLivraisonsEnCours();
+            while (it.hasNext()) {
+                Livraison livraison = it.next();
+                reponse += livraison.getId() + "{" + livraison.getLot() + " " + livraison.getPriorite() + " "
+                        + livraison.getTentative() + "} +";
+            }
+            return "DELIVERIES " + String.valueOf(livreur.nbLivraisonsEnCours()) + " " + reponse;
+        } else {
+            return "AUTHENTICATION_ERROR";
+        }
+
     }
 
     /**

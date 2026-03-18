@@ -12,16 +12,16 @@ public class Livraison implements Comparable<Livraison>
 {
     // Les données membres statiques
     // TODO : À compléter/modifier
-    int MAX_TENTATIVES = 3;
+    private int MAX_TENTATIVES = 3;
 
     // Les attributs d'instance
     // TODO : À compléter/modifier
-    int id;
-    Priorite priorite;
-    int tentative = 0;
-    int lot;
-    Statut statut = Statut.EN_ATTENTE;
-    static int compteurID = 1;
+    private int id;
+    private Priorite priorite;
+    private int tentative = 0;
+    private int lot;
+    private Statut statut = Statut.EN_ATTENTE;
+    private static int compteurID = 1;
 
     /**
      * Constructeur d'une livraison.
@@ -64,6 +64,9 @@ public class Livraison implements Comparable<Livraison>
      * @return La priorite de cette livraison.
      */
     // TODO : À compléter/modifier
+    public Priorite getPriorite() {
+        return this.priorite;
+    }
 
     /**
      * Retourne la tentative pour cette livraison.
