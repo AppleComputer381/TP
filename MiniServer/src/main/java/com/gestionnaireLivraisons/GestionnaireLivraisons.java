@@ -99,8 +99,8 @@ public class GestionnaireLivraisons implements GestionnaireEvenement {
         try {
             StringBuilder contenu = new StringBuilder();
 
-            for (Livreur Livreur : this.livreursEnregistres.toArray()) {
-                contenu.insert(0, Livreur + "\n");
+            for (Livreur livreur : this.livreursEnregistres.toArray()) {
+                contenu.insert(0, livreur + "\n");
             }
             contenu.insert(0, "#  structure <id livreur> <type livreur> <nom livreur>\n");
 
@@ -219,8 +219,8 @@ public class GestionnaireLivraisons implements GestionnaireEvenement {
             Iterator<Livraison> it = livreur.donneIterateurLivraisonsEnCours();
             while (it.hasNext()) {
                 Livraison livraison = it.next();
-                reponse += livraison.getId() + "{" + livraison.getLot() + " " + livraison.getPriorite() + " "
-                        + livraison.getTentative() + "} +";
+                reponse += livraison.getId() + " " + livraison.getLot() + " " + livraison.getPriorite() + " "
+                        + livraison.getTentative() + " ";
             }
             return "DELIVERIES " + String.valueOf(livreur.nbLivraisonsEnCours()) + " " + reponse;
         } else {
@@ -271,9 +271,40 @@ public class GestionnaireLivraisons implements GestionnaireEvenement {
      * @return La chaine constituant la réponse à retourner au client.
      */
     private String traiterINFO(Evenement evenement) {
-        // TODO : À compléter/modifier
-        System.err.println("Méthode GestionnaireLivraisons::traiterINFO non implémentée");
-        return "";
+        Livreur livreur = this.livreursAuthentifies.get(evenement.getSource());
+        if (livreur == null) {
+            return "AUTHENTICATION_ERROR";
+        }
+
+        Arguments arg = new Arguments(evenement);
+        String strIdLivraison = arg.extraireArgumentSuivant();
+        if (strIdLivraison != null) {
+
+            try {
+                int idLivraison = Integer.parseInt(strIdLivraison);
+                Livraison livraison = livreur.rechercherLivraisonEnCours(idLivraison);
+                if (livraison != null) {
+                    return "DELIVERIES_INFO 1" + " " + livraison.getId() + " " + livraison.getLot() + " "
+                            + livraison.getPriorite() + " " + livraison.getTentative() + " ";
+                } else {
+                    return "BAD_DELIVERY_ERROR";
+                }
+            } catch (NumberFormatException e) {
+                return "BAD_ARGUMENT_ERROR";
+            }
+        } else {
+            if (livreur.nbLivraisonsEnCours() == 0) {
+                return "NO_DELIVERY_ERROR";
+            } else {
+                String reponse = "";
+                Iterator<Livraison> it = livreur.donneIterateurLivraisonsEnCours();
+                while (it.hasNext()) {
+                    Livraison l = it.next();
+                    reponse += l.getId() + " " + l.getLot() + " " + l.getPriorite() + " " + l.getTentative() + " ";
+                }
+                return "DELIVERIES_INFO " + String.valueOf(livreur.nbLivraisonsEnCours()) + " " + reponse;
+            }
+        }
     }
 
     /**
