@@ -289,9 +289,12 @@ public class GestionnaireLivraisons implements GestionnaireEvenement {
      * @param evenement L'évènement reçu.
      */
     private String traiterINCOME(Evenement evenement) {
-        // TODO : À compléter/modifier
-        System.err.println("Méthode GestionnaireLivraisons::traiterINCOME non implémentée");
-        return "";
+        Livreur livreur = this.livreursAuthentifies.get(evenement.getSource());
+        if (livreur != null) {
+            return "INCOME " + String.valueOf(livreur.calculerRevenu());
+        } else {
+            return "AUTHENTICATION_ERROR";
+        }
     }
 
     /**
