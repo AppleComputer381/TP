@@ -18,7 +18,8 @@ class AuthenticationException extends Exception {
 }
 
 /**
- * La classe qui permet de gérer des livraisons selon des évènements envoyés par un livreur (client).
+ * La classe qui permet de gérer des livraisons selon des évènements envoyés par
+ * un livreur (client).
  */
 public class GestionnaireLivraisons implements GestionnaireEvenement {
     // Emplacement du fichier contenant la liste des livreurs enregistrés.
@@ -52,11 +53,12 @@ public class GestionnaireLivraisons implements GestionnaireEvenement {
      */
     private void lireFichierLivreurs() {
         try {
-            List<String> lignes = Files.readAllLines(Path.of(GestionnaireLivraisons.fichierLivreurs), StandardCharsets.UTF_8);
+            List<String> lignes = Files.readAllLines(Path.of(GestionnaireLivraisons.fichierLivreurs),
+                    StandardCharsets.UTF_8);
 
             for (String ligne : lignes) {
                 ligne = ligne.trim();
-                if (ligne.charAt(0) != '#') {   //  ignorer les commentaires.
+                if (ligne.charAt(0) != '#') { // ignorer les commentaires.
                     Arguments args = new Arguments(new Evenement(null, null, ligne));
                     int idLivreur = Integer.parseInt(args.extraireArgumentSuivant());
                     String typeLivreur = args.extraireArgumentSuivant().toUpperCase();
@@ -67,15 +69,15 @@ public class GestionnaireLivraisons implements GestionnaireEvenement {
                     switch (typeLivreur) {
                         case "VELO":
                             // TODO : À compléter/modifier
-                            livreur = null;
+                            livreur = new LivreurVelo(idLivreur, nomLivreur);
                             break;
                         case "CAMION":
                             // TODO : À compléter/modifier
-                            livreur = null;
+                            livreur = new LivreurCamion(idLivreur, nomLivreur);
                             break;
                         case "VOITURE":
                             // TODO : À compléter/modifier
-                            livreur = null;
+                            livreur = new LivreurVoiture(idLivreur, nomLivreur);
                             break;
                         default:
                             throw new IOException();
@@ -102,7 +104,8 @@ public class GestionnaireLivraisons implements GestionnaireEvenement {
             }
             contenu.insert(0, "#  structure <id livreur> <type livreur> <nom livreur>\n");
 
-            Files.writeString(Path.of(GestionnaireLivraisons.fichierLivreurs), contenu.toString(), StandardCharsets.UTF_8);
+            Files.writeString(Path.of(GestionnaireLivraisons.fichierLivreurs), contenu.toString(),
+                    StandardCharsets.UTF_8);
         } catch (IOException e) {
             System.err.println("ERREUR dans l'écriture du fichier de livreurs.");
             System.exit(-1);
@@ -135,7 +138,6 @@ public class GestionnaireLivraisons implements GestionnaireEvenement {
         // TODO : À compléter/modifier
         System.err.println("Méthode GestionnaireLivraisons::afficherStatistiques non implémentée");
     }
-
 
     /**
      * Applique la commande EXIT envoyée par un client.
@@ -257,7 +259,6 @@ public class GestionnaireLivraisons implements GestionnaireEvenement {
         return reponse;
     }
 
-
     /**
      * Gère un évènement reçu en paramètre.
      *
@@ -282,7 +283,7 @@ public class GestionnaireLivraisons implements GestionnaireEvenement {
                 case "ID": // Le client s'identifie.
                     reponse = this.traiterID(evenement);
                     break;
-                case "GET": //  Le client a demandé des livraisons à effectuer.
+                case "GET": // Le client a demandé des livraisons à effectuer.
                     reponse = this.traiterGET(evenement);
                     break;
                 case "DELIVERED": // Le client informe qu'une livraison a été effectuée.
