@@ -146,9 +146,19 @@ public class GestionnaireLivraisons implements GestionnaireEvenement {
      * @return La chaîne à renvoyer au client.
      */
     private String traiterEXIT(Evenement evenement) {
-        // TODO : À compléter/modifier
-        System.err.println("Méthode GestionnaireLivraisons::traiterEXIT non implémentée");
-        return "";
+        Livreur livreur = this.livreursAuthentifies.get(evenement.getSource());
+        if (livreur != null) {
+            Iterator<Livraison> livreurLivraisonsEnCours = livreur.donneIterateurLivraisonsEnCours();
+            while (livreurLivraisonsEnCours.hasNext()) {
+                Livraison livraison = livreurLivraisonsEnCours.next();
+                this.livraisonsAEffectuer.ajouter(livraison);
+                livreurLivraisonsEnCours.remove();
+            }
+            this.livreursAuthentifies.remove(evenement.getSource());
+            return "END";
+        } else {
+            return "AUTHENTICATION_ERROR";
+        }
     }
 
     /**
