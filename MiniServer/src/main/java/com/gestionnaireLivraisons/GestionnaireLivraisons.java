@@ -158,9 +158,32 @@ public class GestionnaireLivraisons implements GestionnaireEvenement {
      * @return La chaîne à renvoyer au client.
      */
     private String traiterID(Evenement evenement) {
-        // TODO : À compléter/modifier
-        System.err.println("Méthode GestionnaireLivraisons::traiterID non implémentée");
-        return "";
+        Arguments arguments = new Arguments(evenement);
+        String argID = arguments.extraireArgumentSuivant();
+        try {
+            Livreur livreur = this.livreursEnregistres.rechercher(Integer.parseInt(argID));
+
+            if (livreur != null) {
+                if (!this.livreursAuthentifies.containsKey(evenement.getSource())) { // on verifie qu'il c'est pas deja
+                                                                                     // connecte avec ce client
+                    if (!this.livreursAuthentifies.containsValue(livreur)) { // on verifie qu'il n'est pas deja connecte
+                                                                             // avec un autre client
+                        this.livreursAuthentifies.put((Connexion) evenement.getSource(), livreur);
+                        return "AUTHORIZED " + livreur.getId() + " " + livreur.getNom();
+                    } else {
+                        return "TOO_MANY_CONNECTIONS_ERROR";
+                    }
+                } else {
+                    return "ALREADY_AUTHENTIFIED_ERROR";
+                }
+
+            } else {
+                return "AUTHENTICATION_ERROR";
+            }
+        } catch (NumberFormatException e) {
+            return "BAD_ARGUMENT_ERROR";
+        }
+
     }
 
     /**
