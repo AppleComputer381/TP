@@ -203,9 +203,37 @@ public class GestionnaireLivraisons implements GestionnaireEvenement {
      * @return La chaîne à renvoyer au client.
      */
     private String traiterREGISTER(Evenement evenement) {
-        // TODO : À compléter/modifier
-        System.err.println("Méthode GestionnaireLivraisons::traiterREGISTER non implémentée");
-        return "";
+        Arguments arguments = new Arguments(evenement);
+        String argId = arguments.extraireArgumentSuivant();
+        String argMode = arguments.extraireArgumentSuivant();
+        String argNom = arguments.extraireArgumentSuivant();
+        if (argId == null || argMode == null || argNom == null) {
+            return "BAD_ARGUMENT_ERROR";
+        }
+
+        try {
+            Livreur livreur = this.livreursEnregistres.rechercher(Integer.parseInt(argId));
+            if (livreur != null) {
+                return "ALREADY_REGISTERED_ERROR";
+            } else {
+                if (argMode == "VELO") {
+                    livreur = new LivreurVelo(Integer.parseInt(argId), argNom);
+
+                } else if (argMode == "VOITURE") {
+                    livreur = new LivreurVoiture(Integer.parseInt(argId), argNom);
+                } else if (argMode == "CAMION") {
+                    livreur = new LivreurCamion(Integer.parseInt(argId), argNom);
+                } else {
+                    return "BAD_ARGUMENT_ERROR";
+                }
+                this.livreursEnregistres.ajouter(livreur);
+                return "REGISTERED " + livreur.getId() + " " + livreur.getNom();
+            }
+
+        } catch (NumberFormatException | ListeChaineeException e) {
+            return "BAD_ARGUMENT_ERROR";
+        }
+
     }
 
     /**
