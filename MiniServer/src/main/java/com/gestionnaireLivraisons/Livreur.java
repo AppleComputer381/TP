@@ -33,9 +33,7 @@ public abstract class Livreur {
      * @return L'id de ce livreur.
      */
     public int getId() {
-        // TODO : À compléter/modifier
-        System.err.println("Méthode Livreur::getId non implémentée");
-        return 0;
+        return this.id;
     }
 
     /**
@@ -55,7 +53,7 @@ public abstract class Livreur {
      * @return true si oui, false sinon.
      */
     public boolean aDesLivraisonsEnCours() {
-        return this.livraisonsEnCours.estVide();
+        return !this.livraisonsEnCours.estVide();
     }
 
     /**
@@ -129,8 +127,7 @@ public abstract class Livreur {
      */
     public int nbLivraisonsEnCours() {
         // TODO : À compléter/modifier
-        System.err.println("Méthode Livreur::nbLivraisonsEnCours non implémentée");
-        return 0;
+        return this.livraisonsEnCours.taille();
     }
 
     /**
@@ -140,8 +137,7 @@ public abstract class Livreur {
      */
     public Iterator<Livraison> donneIterateurLivraisonsEnCours() {
         // TODO : À compléter/modifier
-        System.err.println("Méthode Livreur::donneIterateurLivraisonsEnCours non implémentée");
-        return null;
+        return this.livraisonsEnCours.iterator();
     }
 
     /**

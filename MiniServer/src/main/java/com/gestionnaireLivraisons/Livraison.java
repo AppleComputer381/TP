@@ -44,7 +44,7 @@ public class Livraison implements Comparable<Livraison>
         // TODO : À compléter/modifier
         compteurID++;
 
-        System.err.println("Méthode Livraison::prochainID non implémentée");
+        // System.err.println("Méthode Livraison::prochainID non implémentée");
         return compteurID;
     }
 
@@ -55,8 +55,7 @@ public class Livraison implements Comparable<Livraison>
      */
     public int getId() {
         // TODO : À compléter/modifier
-        System.err.println("Méthode Livraison::getId non implémentée");
-        return 0;
+        return this.id;
     }
 
     /**

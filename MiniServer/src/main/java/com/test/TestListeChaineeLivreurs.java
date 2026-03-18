@@ -1,6 +1,7 @@
 package com.test;
 
 import com.gestionnaireLivraisons.*;
+import com.gestionnaireLivraisons.Livreur;
 
 public class TestListeChaineeLivreurs {
 
@@ -9,9 +10,34 @@ public class TestListeChaineeLivreurs {
      */
     private static void testAjouter() {
         System.out.print("Test ajouter : ");
+        ListeChaineeLivreurs liste = new ListeChaineeLivreurs();
 
-        // TODO : À compléter/modifier
-        System.err.println("Méthode TestListeChaineeLivreurs::testAjouter() non implémentée");
+        // creation de la tete
+        Livreur livreur = new LivreurVelo(1, "Emilien");
+        try {
+            liste.ajouter(livreur);
+        } catch (ListeChaineeException e) {
+            System.out.println("NOK");
+        }
+
+        if (liste.taille() == 1) {
+            System.out.println("OK");
+        } else {
+            System.out.println("NOK");
+        }
+    }
+
+    private static void testAjouterExistant() {
+        System.out.print("Test ajouter existant : ");
+        ListeChaineeLivreurs liste = new ListeChaineeLivreurs();
+        Livreur livreur = new LivreurVelo(1, "Emilien");
+        try {
+            liste.ajouter(livreur);
+            liste.ajouter(livreur);
+            System.out.println("NOK");
+        } catch (ListeChaineeException e) {
+            System.out.println("OK");
+        }
     }
 
     /**
@@ -19,9 +45,19 @@ public class TestListeChaineeLivreurs {
      */
     private static void testSupprimer() {
         System.out.print("Test supprimer : ");
-
-        // TODO : À compléter/modifier
-        System.err.println("Méthode TestListeChaineeLivreurs::testSupprimer() non implémentée");
+        ListeChaineeLivreurs liste = new ListeChaineeLivreurs();
+        Livreur livreur = new LivreurVelo(1, "Emilien");
+        try {
+            liste.ajouter(livreur);
+            liste.supprimer(1);
+            if (liste.taille() == 0) {
+                System.out.println("OK");
+            } else {
+                System.out.println("NOK");
+            }
+        } catch (ListeChaineeException e) {
+            System.out.println("NOK");
+        }
     }
 
     /**
@@ -29,9 +65,22 @@ public class TestListeChaineeLivreurs {
      */
     private static void testRechercher() {
         System.out.print("Test rechercher : ");
-
-        // TODO : À compléter/modifier
-        System.err.println("Méthode TestListeChaineeLivreurs::testRechercher() non implémentée");
+        ListeChaineeLivreurs liste = new ListeChaineeLivreurs();
+        Livreur livreur = new LivreurVelo(1, "Emilien");
+        Livreur livreur2 = new LivreurVelo(2, "Paul");
+        Livreur livreur3 = new LivreurVelo(3, "Quentin");
+        try {
+            liste.ajouter(livreur);
+            liste.ajouter(livreur2);
+            liste.ajouter(livreur3);
+            if (liste.rechercher(1) == livreur) {
+                System.out.println("OK");
+            } else {
+                System.out.println("NOK");
+            }
+        } catch (ListeChaineeException e) {
+            System.out.println("NOK");
+        }
     }
 
     /**
@@ -39,9 +88,22 @@ public class TestListeChaineeLivreurs {
      */
     private static void testTaille() {
         System.out.print("Test taille : ");
-
-        // TODO : À compléter/modifier
-        System.err.println("Méthode TestListeChaineeLivreurs::testTaille() non implémentée");
+        ListeChaineeLivreurs liste = new ListeChaineeLivreurs();
+        Livreur livreur = new LivreurVelo(1, "Emilien");
+        Livreur livreur2 = new LivreurVelo(2, "Paul");
+        Livreur livreur3 = new LivreurVelo(3, "Quentin");
+        try {
+            liste.ajouter(livreur);
+            liste.ajouter(livreur2);
+            liste.ajouter(livreur3);
+            if (liste.taille() == 3) {
+                System.out.println("OK");
+            } else {
+                System.out.println("NOK");
+            }
+        } catch (ListeChaineeException e) {
+            System.out.println("NOK");
+        }
     }
 
     /**
@@ -49,9 +111,22 @@ public class TestListeChaineeLivreurs {
      */
     private static void testToArray() {
         System.out.print("Test toArray : ");
-
-        // TODO : À compléter/modifier
-        System.err.println("Méthode TestListeChaineeLivreurs::testToArray() non implémentée");
+        ListeChaineeLivreurs liste = new ListeChaineeLivreurs();
+        Livreur livreur = new LivreurVelo(1, "Emilien");
+        Livreur livreur2 = new LivreurVelo(2, "Paul");
+        Livreur livreur3 = new LivreurVelo(3, "Quentin");
+        try {
+            liste.ajouter(livreur);
+            liste.ajouter(livreur2);
+            liste.ajouter(livreur3);
+            if (liste.toArray() == new Livreur[] { livreur, livreur2, livreur3 }) {
+                System.out.println("OK");
+            } else {
+                System.out.println("NOK");
+            }
+        } catch (ListeChaineeException e) {
+            System.out.println("NOK");
+        }
     }
 
     /**
@@ -62,6 +137,7 @@ public class TestListeChaineeLivreurs {
 
         TestListeChaineeLivreurs.testTaille();
         TestListeChaineeLivreurs.testAjouter();
+        TestListeChaineeLivreurs.testAjouterExistant();
         TestListeChaineeLivreurs.testSupprimer();
         TestListeChaineeLivreurs.testRechercher();
         TestListeChaineeLivreurs.testToArray();

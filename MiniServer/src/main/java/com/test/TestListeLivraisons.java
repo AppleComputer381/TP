@@ -8,9 +8,21 @@ public class TestListeLivraisons {
      */
     private static void testAjouter() {
         System.out.print("Test ajouter : ");
+        ListeLivraisons liste = new ListeLivraisons();
+        Livraison FirstLivraison = new Livraison(Priorite.NORMALE, 1);
+        Livraison SecondLivraison = new Livraison(Priorite.URGENT, 1);
+        Livraison TreeLivraison = new Livraison(Priorite.NORMALE, 2);
+        Livraison ForLivraison = new Livraison(Priorite.URGENT, 2);
 
-        // TODO : À compléter/modifier
-        System.err.println("Méthode TestListeLivraisons::testAjouter() non implémentée");
+        liste.ajouter(FirstLivraison);
+        liste.ajouter(SecondLivraison);
+        liste.ajouter(TreeLivraison);
+        liste.ajouter(ForLivraison);
+        if (liste.taille() == 4) {
+            System.out.println("OK");
+        } else {
+            System.out.println("NOK");
+        }
     }
 
     /**
@@ -18,9 +30,22 @@ public class TestListeLivraisons {
      */
     private static void testSupprimer() {
         System.out.print("Test supprimer : ");
+        ListeLivraisons liste = new ListeLivraisons();
+        Livraison FirstLivraison = new Livraison(Priorite.NORMALE, 1);
+        Livraison SecondLivraison = new Livraison(Priorite.URGENT, 1);
+        Livraison TreeLivraison = new Livraison(Priorite.NORMALE, 2);
+        Livraison ForLivraison = new Livraison(Priorite.URGENT, 2);
 
-        // TODO : À compléter/modifier
-        System.err.println("Méthode TestListeLivraisons::testSupprimer() non implémentée");
+        liste.ajouter(FirstLivraison);
+        liste.ajouter(SecondLivraison);
+        liste.ajouter(TreeLivraison);
+        liste.ajouter(ForLivraison);
+        liste.supprimer(FirstLivraison.getId());
+        if (liste.taille() == 3) {
+            System.out.println("OK");
+        } else {
+            System.out.println("NOK");
+        }
     }
 
     /**
@@ -28,9 +53,21 @@ public class TestListeLivraisons {
      */
     private static void testRechercher() {
         System.out.print("Test rechercher : ");
+        ListeLivraisons liste = new ListeLivraisons();
+        Livraison FirstLivraison = new Livraison(Priorite.NORMALE, 1);
+        Livraison SecondLivraison = new Livraison(Priorite.URGENT, 1);
+        Livraison TreeLivraison = new Livraison(Priorite.NORMALE, 2);
+        Livraison ForLivraison = new Livraison(Priorite.URGENT, 2);
 
-        // TODO : À compléter/modifier
-        System.err.println("Méthode TestListeLivraisons::testRechercher() non implémentée");
+        liste.ajouter(FirstLivraison);
+        liste.ajouter(SecondLivraison);
+        liste.ajouter(TreeLivraison);
+        liste.ajouter(ForLivraison);
+        if (liste.rechercher(ForLivraison.getId()) == ForLivraison) {
+            System.out.println("OK");
+        } else {
+            System.out.println("NOK");
+        }
     }
 
     /**
@@ -38,9 +75,22 @@ public class TestListeLivraisons {
      */
     private static void testVider() {
         System.out.print("Test vider : ");
+        ListeLivraisons liste = new ListeLivraisons();
+        Livraison FirstLivraison = new Livraison(Priorite.NORMALE, 1);
+        Livraison SecondLivraison = new Livraison(Priorite.URGENT, 1);
+        Livraison TreeLivraison = new Livraison(Priorite.NORMALE, 2);
+        Livraison ForLivraison = new Livraison(Priorite.URGENT, 2);
 
-        // TODO : À compléter/modifier
-        System.err.println("Méthode TestListeLivraisons::testVider() non implémentée");
+        liste.ajouter(FirstLivraison);
+        liste.ajouter(SecondLivraison);
+        liste.ajouter(TreeLivraison);
+        liste.ajouter(ForLivraison);
+        liste.vider();
+        if (liste.taille() == 0) {
+            System.out.println("OK");
+        } else {
+            System.out.println("NOK");
+        }
     }
 
     /**
@@ -48,9 +98,12 @@ public class TestListeLivraisons {
      */
     private static void testEstVide() {
         System.out.print("Test estVide : ");
-
-        // TODO : À compléter/modifier
-        System.err.println("Méthode TestListeLivraisons::testEstVide() non implémentée");
+        ListeLivraisons liste = new ListeLivraisons();
+        if (liste.estVide()) {
+            System.out.println("OK");
+        } else {
+            System.out.println("NOK");
+        }
     }
 
     /**
@@ -58,11 +111,22 @@ public class TestListeLivraisons {
      */
     private static void testTaille() {
         System.out.print("Test taille : ");
+        ListeLivraisons liste = new ListeLivraisons();
+        Livraison FirstLivraison = new Livraison(Priorite.NORMALE, 1);
+        Livraison SecondLivraison = new Livraison(Priorite.URGENT, 1);
+        Livraison TreeLivraison = new Livraison(Priorite.NORMALE, 2);
+        Livraison ForLivraison = new Livraison(Priorite.URGENT, 2);
 
-        // TODO : À compléter/modifier
-        System.err.println("Méthode TestListeLivraisons::testTaille() non implémentée");
+        liste.ajouter(FirstLivraison);
+        liste.ajouter(SecondLivraison);
+        liste.ajouter(TreeLivraison);
+        liste.ajouter(ForLivraison);
+        if (liste.taille() == 4) {
+            System.out.println("OK");
+        } else {
+            System.out.println("NOK");
+        }
     }
-
 
     /**
      * Lancements des tests pour la classe ListeChaineeLivreurs.
