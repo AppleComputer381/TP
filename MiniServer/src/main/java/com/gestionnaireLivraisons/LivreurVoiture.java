@@ -19,4 +19,9 @@ public class LivreurVoiture extends Livreur {
     public double calculerRevenu() {
         return 7.5 * this.nbLivraisonsEffectuees();
     }
+
+    @Override
+    public String toString() {
+        return this.getId() + " VOITURE " + this.getNom();
+    }
 }

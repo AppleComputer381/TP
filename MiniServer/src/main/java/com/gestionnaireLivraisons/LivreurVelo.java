@@ -22,6 +22,6 @@ public class LivreurVelo extends Livreur {
 
     @Override
     public String toString() {
-        return "LivreurVelo: \n id: " + this.getId() + " nom: " + this.getNom();
+        return this.getId() + " VELO " + this.getNom();
     }
 }

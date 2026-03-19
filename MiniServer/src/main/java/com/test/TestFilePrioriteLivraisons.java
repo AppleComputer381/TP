@@ -46,9 +46,9 @@ public class TestFilePrioriteLivraisons {
         String result = "";
         FilePrioriteLivraisons file = new FilePrioriteLivraisons();
         Livraison FirstLivraison = new Livraison(Priorite.NORMALE, 1);
-        Livraison SecondLivraison = new Livraison(Priorite.URGENT, 1);
+        Livraison SecondLivraison = new Livraison(Priorite.URGENTE, 1);
         Livraison TreeLivraison = new Livraison(Priorite.NORMALE, 2);
-        Livraison ForLivraison = new Livraison(Priorite.URGENT, 2);
+        Livraison ForLivraison = new Livraison(Priorite.URGENTE, 2);
         file.ajouterTout(Arrays.asList(FirstLivraison, SecondLivraison, TreeLivraison, ForLivraison));
 
         if (file.taille() == 4) {
@@ -66,7 +66,7 @@ public class TestFilePrioriteLivraisons {
         String result = "";
         FilePrioriteLivraisons file = new FilePrioriteLivraisons();
         Livraison FirstLivraison = new Livraison(Priorite.NORMALE, 1);
-        Livraison SecondLivraison = new Livraison(Priorite.URGENT, 1);
+        Livraison SecondLivraison = new Livraison(Priorite.URGENTE, 1);
         file.ajouterTout(Arrays.asList(FirstLivraison, SecondLivraison));
         if (file.taille() == 2) {
             System.out.println("OK");
@@ -83,7 +83,7 @@ public class TestFilePrioriteLivraisons {
         String result = "";
         FilePrioriteLivraisons file = new FilePrioriteLivraisons();
         Livraison FirstLivraison = new Livraison(Priorite.NORMALE, 1);
-        Livraison SecondLivraison = new Livraison(Priorite.URGENT, 1);
+        Livraison SecondLivraison = new Livraison(Priorite.URGENTE, 1);
         file.ajouterTout(Arrays.asList(FirstLivraison, SecondLivraison));
         file.retirer();
         if (file.taille() == 1) {
@@ -101,7 +101,7 @@ public class TestFilePrioriteLivraisons {
         FilePrioriteLivraisons file = new FilePrioriteLivraisons();
 
         Livraison l1 = new Livraison(Priorite.NORMALE, 2);
-        Livraison l2 = new Livraison(Priorite.URGENT, 1);
+        Livraison l2 = new Livraison(Priorite.URGENTE, 1);
         Livraison l3 = new Livraison(Priorite.NORMALE, 1);
         Livraison l4 = new Livraison(Priorite.NORMALE, 1);
         l4.nouvelleTentative();

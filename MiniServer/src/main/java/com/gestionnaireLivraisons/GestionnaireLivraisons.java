@@ -23,7 +23,7 @@ class AuthenticationException extends Exception {
  */
 public class GestionnaireLivraisons implements GestionnaireEvenement {
     // Emplacement du fichier contenant la liste des livreurs enregistrés.
-    final private static String fichierLivreurs = "src/main/livreurs.txt";
+    final private static String fichierLivreurs = "MiniServer/src/main/livreurs.txt";
 
     // Attributs d'ínstance pour un GestionnaireLivraisons
     final private IListeChaineeLivreurs livreursEnregistres;
@@ -58,7 +58,7 @@ public class GestionnaireLivraisons implements GestionnaireEvenement {
 
             for (String ligne : lignes) {
                 ligne = ligne.trim();
-                if (ligne.charAt(0) != '#') { // ignorer les commentaires.
+                if (!ligne.isEmpty() && ligne.charAt(0) != '#') { // ignorer les commentaires et lignes vides.
                     Arguments args = new Arguments(new Evenement(null, null, ligne));
                     int idLivreur = Integer.parseInt(args.extraireArgumentSuivant());
                     String typeLivreur = args.extraireArgumentSuivant().toUpperCase();
@@ -82,11 +82,15 @@ public class GestionnaireLivraisons implements GestionnaireEvenement {
                         default:
                             throw new IOException();
                     }
-                    this.livreursEnregistres.ajouter(livreur);
-                    System.out.println(ligne);
+                    try {
+                        this.livreursEnregistres.ajouter(livreur);
+                    } catch (ListeChaineeException e) {
+                        System.err.println("ERREUR dans l'ajout du livreur " + livreur.getNom() + " au fichier.");
+                        System.exit(-1);
+                    }
                 }
             }
-        } catch (IOException | ListeChaineeException e) {
+        } catch (IOException e) {
             System.err.println("ERREUR dans la lecture du fichier de livreurs.");
             System.exit(-1);
         }
@@ -205,8 +209,11 @@ public class GestionnaireLivraisons implements GestionnaireEvenement {
     private String traiterREGISTER(Evenement evenement) {
         Arguments arguments = new Arguments(evenement);
         String argId = arguments.extraireArgumentSuivant();
+        System.out.println("argId : " + argId);
         String argMode = arguments.extraireArgumentSuivant();
+        System.out.println("argMode : " + argMode);
         String argNom = arguments.extraireArgumentSuivant();
+        System.out.println("argNom : " + argNom);
         if (argId == null || argMode == null || argNom == null) {
             return "BAD_ARGUMENT_ERROR";
         }
@@ -216,22 +223,26 @@ public class GestionnaireLivraisons implements GestionnaireEvenement {
             if (livreur != null) {
                 return "ALREADY_REGISTERED_ERROR";
             } else {
-                if (argMode == "VELO") {
+                if (argMode.equals("VELO")) {
                     livreur = new LivreurVelo(Integer.parseInt(argId), argNom);
 
-                } else if (argMode == "VOITURE") {
+                } else if (argMode.equals("VOITURE")) {
                     livreur = new LivreurVoiture(Integer.parseInt(argId), argNom);
-                } else if (argMode == "CAMION") {
+                } else if (argMode.equals("CAMION")) {
                     livreur = new LivreurCamion(Integer.parseInt(argId), argNom);
                 } else {
                     return "BAD_ARGUMENT_ERROR";
                 }
-                this.livreursEnregistres.ajouter(livreur);
+                try {
+                    this.livreursEnregistres.ajouter(livreur);
+                } catch (ListeChaineeException e) {
+                    return "BAD_ARGUMENT_ERROR-1";
+                }
                 return "REGISTERED " + livreur.getId() + " " + livreur.getNom();
             }
 
-        } catch (NumberFormatException | ListeChaineeException e) {
-            return "BAD_ARGUMENT_ERROR";
+        } catch (NumberFormatException e) {
+            return "BAD_ARGUMENT_ERROR-2";
         }
 
     }

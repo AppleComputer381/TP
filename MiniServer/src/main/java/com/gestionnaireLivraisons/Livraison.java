@@ -151,9 +151,9 @@ public class Livraison implements Comparable<Livraison>
         } else if (this.lot > autreLivraison.lot) {
             return 1;
         } else {
-            if (this.priorite == Priorite.URGENT && autreLivraison.priorite == Priorite.NORMALE) {
+            if (this.priorite == Priorite.URGENTE && autreLivraison.priorite == Priorite.NORMALE) {
                 return -1;
-            } else if (this.priorite == Priorite.NORMALE && autreLivraison.priorite == Priorite.URGENT) {
+            } else if (this.priorite == Priorite.NORMALE && autreLivraison.priorite == Priorite.URGENTE) {
                 return 1;
             } else {
                 if (this.tentative > autreLivraison.tentative) {

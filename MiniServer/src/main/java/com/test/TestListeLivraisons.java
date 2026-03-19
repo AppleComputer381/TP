@@ -10,9 +10,9 @@ public class TestListeLivraisons {
         System.out.print("Test ajouter : ");
         ListeLivraisons liste = new ListeLivraisons();
         Livraison FirstLivraison = new Livraison(Priorite.NORMALE, 1);
-        Livraison SecondLivraison = new Livraison(Priorite.URGENT, 1);
+        Livraison SecondLivraison = new Livraison(Priorite.URGENTE, 1);
         Livraison TreeLivraison = new Livraison(Priorite.NORMALE, 2);
-        Livraison ForLivraison = new Livraison(Priorite.URGENT, 2);
+        Livraison ForLivraison = new Livraison(Priorite.URGENTE, 2);
 
         liste.ajouter(FirstLivraison);
         liste.ajouter(SecondLivraison);
@@ -32,9 +32,9 @@ public class TestListeLivraisons {
         System.out.print("Test supprimer : ");
         ListeLivraisons liste = new ListeLivraisons();
         Livraison FirstLivraison = new Livraison(Priorite.NORMALE, 1);
-        Livraison SecondLivraison = new Livraison(Priorite.URGENT, 1);
+        Livraison SecondLivraison = new Livraison(Priorite.URGENTE, 1);
         Livraison TreeLivraison = new Livraison(Priorite.NORMALE, 2);
-        Livraison ForLivraison = new Livraison(Priorite.URGENT, 2);
+        Livraison ForLivraison = new Livraison(Priorite.URGENTE, 2);
 
         liste.ajouter(FirstLivraison);
         liste.ajouter(SecondLivraison);
@@ -55,9 +55,9 @@ public class TestListeLivraisons {
         System.out.print("Test rechercher : ");
         ListeLivraisons liste = new ListeLivraisons();
         Livraison FirstLivraison = new Livraison(Priorite.NORMALE, 1);
-        Livraison SecondLivraison = new Livraison(Priorite.URGENT, 1);
+        Livraison SecondLivraison = new Livraison(Priorite.URGENTE, 1);
         Livraison TreeLivraison = new Livraison(Priorite.NORMALE, 2);
-        Livraison ForLivraison = new Livraison(Priorite.URGENT, 2);
+        Livraison ForLivraison = new Livraison(Priorite.URGENTE, 2);
 
         liste.ajouter(FirstLivraison);
         liste.ajouter(SecondLivraison);
@@ -77,9 +77,9 @@ public class TestListeLivraisons {
         System.out.print("Test vider : ");
         ListeLivraisons liste = new ListeLivraisons();
         Livraison FirstLivraison = new Livraison(Priorite.NORMALE, 1);
-        Livraison SecondLivraison = new Livraison(Priorite.URGENT, 1);
+        Livraison SecondLivraison = new Livraison(Priorite.URGENTE, 1);
         Livraison TreeLivraison = new Livraison(Priorite.NORMALE, 2);
-        Livraison ForLivraison = new Livraison(Priorite.URGENT, 2);
+        Livraison ForLivraison = new Livraison(Priorite.URGENTE, 2);
 
         liste.ajouter(FirstLivraison);
         liste.ajouter(SecondLivraison);
@@ -113,9 +113,9 @@ public class TestListeLivraisons {
         System.out.print("Test taille : ");
         ListeLivraisons liste = new ListeLivraisons();
         Livraison FirstLivraison = new Livraison(Priorite.NORMALE, 1);
-        Livraison SecondLivraison = new Livraison(Priorite.URGENT, 1);
+        Livraison SecondLivraison = new Livraison(Priorite.URGENTE, 1);
         Livraison TreeLivraison = new Livraison(Priorite.NORMALE, 2);
-        Livraison ForLivraison = new Livraison(Priorite.URGENT, 2);
+        Livraison ForLivraison = new Livraison(Priorite.URGENTE, 2);
 
         liste.ajouter(FirstLivraison);
         liste.ajouter(SecondLivraison);
