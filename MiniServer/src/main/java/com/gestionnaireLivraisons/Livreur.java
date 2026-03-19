@@ -89,9 +89,9 @@ public abstract class Livreur {
      * @return La liste des livraisons en cours avant suppressions.
      */
     public IListeLivraisons supprimerToutesLesLivraisons() {
-        ListeLivraisons liste = this.livraisonsEnCours;
-        this.livraisonsEnCours.vider();
-        return liste;
+        ListeLivraisons listecopie = this.livraisonsEnCours;
+        this.livraisonsEnCours = new ListeLivraisons();
+        return listecopie;
     }
 
     /**

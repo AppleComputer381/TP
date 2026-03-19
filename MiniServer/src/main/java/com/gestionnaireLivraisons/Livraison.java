@@ -75,8 +75,7 @@ public class Livraison implements Comparable<Livraison>
      */
     public int getTentative() {
         // TODO : À compléter/modifier
-        System.err.println("Méthode Livraison::getTentative non implémentée");
-        return 0;
+        return this.tentative;
     }
 
     /**
@@ -86,8 +85,7 @@ public class Livraison implements Comparable<Livraison>
      */
     public int getLot() {
         // TODO : À compléter/modifier
-        System.err.println("Méthode Livraison::getLot non implémentée");
-        return 0;
+        return this.lot;
     }
 
     /**
@@ -96,7 +94,7 @@ public class Livraison implements Comparable<Livraison>
      */
     public void setStatut(Statut statut) {
         // TODO : À compléter/modifier
-        System.err.println("Méthode Livraison::setStatut non implémentée");
+        this.statut = statut;
     }
 
     /**
@@ -122,9 +120,7 @@ public class Livraison implements Comparable<Livraison>
      * @return true s'il reste des tentatives, false sinon.
      */
     public boolean resteTentatives() {
-        // TODO : À compléter/modifier
-        System.err.println("Méthode Livraison::resteTentatives non implémentée");
-        return false;
+        return this.MAX_TENTATIVES > 0;
     }
 
     /**

@@ -94,6 +94,32 @@ public class TestFilePrioriteLivraisons {
     }
 
     /**
+     * Test de l'ordre de priorité (compareTo de Livraison).
+     */
+    private static void testOrdrePriorite() {
+        System.out.print("Test ordre de priorité (compareTo) : ");
+        FilePrioriteLivraisons file = new FilePrioriteLivraisons();
+
+        Livraison l1 = new Livraison(Priorite.NORMALE, 2);
+        Livraison l2 = new Livraison(Priorite.URGENT, 1);
+        Livraison l3 = new Livraison(Priorite.NORMALE, 1);
+        Livraison l4 = new Livraison(Priorite.NORMALE, 1);
+        l4.nouvelleTentative();
+        l4.nouvelleTentative();
+
+        file.ajouterTout(Arrays.asList(l1, l2, l3, l4));
+
+        if (file.retirer() == l2 &&
+                file.retirer() == l4 &&
+                file.retirer() == l3 &&
+                file.retirer() == l1) {
+            System.out.println("OK");
+        } else {
+            System.out.println("NOK");
+        }
+    }
+
+    /**
      * Lancements des tests pour la classe FilePrioriteLivraisons.
      */
     public static void tests() {
@@ -104,5 +130,6 @@ public class TestFilePrioriteLivraisons {
         TestFilePrioriteLivraisons.testAjouterTout();
         TestFilePrioriteLivraisons.testTaille();
         TestFilePrioriteLivraisons.testRetirer();
+        TestFilePrioriteLivraisons.testOrdrePriorite();
     }
 }

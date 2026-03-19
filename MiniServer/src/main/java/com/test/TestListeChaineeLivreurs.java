@@ -1,7 +1,8 @@
 package com.test;
 
+import java.util.Arrays;
+
 import com.gestionnaireLivraisons.*;
-import com.gestionnaireLivraisons.Livreur;
 
 public class TestListeChaineeLivreurs {
 
@@ -119,7 +120,7 @@ public class TestListeChaineeLivreurs {
             liste.ajouter(livreur);
             liste.ajouter(livreur2);
             liste.ajouter(livreur3);
-            if (liste.toArray() == new Livreur[] { livreur, livreur2, livreur3 }) {
+            if (Arrays.equals(liste.toArray(), new Livreur[] { livreur, livreur2, livreur3 })) {
                 System.out.println("OK");
             } else {
                 System.out.println("NOK");

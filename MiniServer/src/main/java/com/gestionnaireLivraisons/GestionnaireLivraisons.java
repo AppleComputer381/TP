@@ -253,6 +253,9 @@ public class GestionnaireLivraisons implements GestionnaireEvenement {
                     nbLivraisonsEnCours++;
                 }
             }
+            if (livreur.nbLivraisonsEnCours() == 0) {
+                return "EMPTY";
+            }
             String reponse = "";
             Iterator<Livraison> it = livreur.donneIterateurLivraisonsEnCours();
             while (it.hasNext()) {
@@ -283,10 +286,10 @@ public class GestionnaireLivraisons implements GestionnaireEvenement {
             if (livraison != null) {
                 livreur.supprimerLivraisonEnCours(idLivraison);
                 livreur.ajouterLivraisonEffectuee(livraison);
-                return "DELIVERED";
+                return "DELIVERED_OK " + String.valueOf(idLivraison);
 
             } else {
-                return "BAD_ARGUMENT_ERROR";
+                return "BAD_DELIVERY_ERROR";
             }
 
         } else {
@@ -310,11 +313,16 @@ public class GestionnaireLivraisons implements GestionnaireEvenement {
             Livraison livraison = livreur.rechercherLivraisonEnCours(idLivraison);
             if (livraison != null) {
                 livreur.supprimerLivraisonEnCours(idLivraison);
-                livraison.nouvelleTentative();
-                this.livraisonsAEffectuer.ajouter(livraison);
-                return "FAILED_CONTINUE " + String.valueOf(idLivraison);
+                boolean possible = livraison.nouvelleTentative();
+                if (possible) {
+                    this.livraisonsAEffectuer.ajouter(livraison);
+                    return "FAILED_CONTINUE " + String.valueOf(idLivraison);
+                } else {
+                    this.livraisonsEchouees.ajouter(livraison);
+                    return "FAILED_ABORT " + String.valueOf(idLivraison);
+                }
             } else {
-                return "BAD_ARGUMENT_ERROR";
+                return "BAD_DELIVERY_ERROR";
             }
         } else {
             return "AUTHENTICATION_ERROR";
@@ -329,7 +337,8 @@ public class GestionnaireLivraisons implements GestionnaireEvenement {
     private String traiterINCOME(Evenement evenement) {
         Livreur livreur = this.livreursAuthentifies.get(evenement.getSource());
         if (livreur != null) {
-            return "INCOME " + String.valueOf(livreur.calculerRevenu());
+            return "REVENUE " + String.valueOf(livreur.calculerRevenu()) + " "
+                    + String.valueOf(livreur.nbLivraisonsEffectuees());
         } else {
             return "AUTHENTICATION_ERROR";
         }
