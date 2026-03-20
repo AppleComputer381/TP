@@ -271,7 +271,7 @@ public class GestionnaireLivraisons implements GestionnaireEvenement {
             while (it.hasNext()) {
                 Livraison livraison = it.next();
                 reponse += livraison.getId() + " " + livraison.getLot() + " " + livraison.getPriorite() + " "
-                        + livraison.getTentative();
+                        + livraison.getTentative() + " ";
             }
             return "DELIVERIES " + String.valueOf(livreur.nbLivraisonsEnCours()) + " " + reponse;
         } else {
