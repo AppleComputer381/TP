@@ -10,7 +10,7 @@ import java.util.PriorityQueue;
  */
 public class FilePrioriteLivraisons {
     // Les livraisons stockées dans une file de priorité
-    PriorityQueue<Livraison> file;
+    private PriorityQueue<Livraison> file;
 
     /**
      * Construit une file de priorité.

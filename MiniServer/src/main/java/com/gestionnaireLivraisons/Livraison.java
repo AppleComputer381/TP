@@ -9,15 +9,15 @@ import javax.lang.model.util.ElementScanner14;
  */
 public class Livraison implements Comparable<Livraison> {
     // Les données membres statiques
-    private int MAX_TENTATIVES = 3;
+    private static final int MAX_TENTATIVES = 3;
 
     // Les attributs d'instance
     private int id;
     private Priorite priorite;
     private int tentative = 0;
     private int lot;
-    private Statut statut = Statut.EN_ATTENTE;
-    private static int compteurID = 1;
+    private Statut statut;
+    private static int compteurID = 0;
 
     /**
      * Constructeur d'une livraison.
@@ -29,6 +29,7 @@ public class Livraison implements Comparable<Livraison> {
         this.priorite = priorite;
         this.lot = lot;
         this.id = prochainID();
+        this.statut = Statut.EN_ATTENTE;
 
     }
 
@@ -89,12 +90,11 @@ public class Livraison implements Comparable<Livraison> {
      *
      */
     public boolean nouvelleTentative() {
-        if (MAX_TENTATIVES == 0) {
+        if (this.tentative == MAX_TENTATIVES) {
             return false;
 
         } else {
-            tentative++;
-            MAX_TENTATIVES--;
+            this.tentative++;
             return true;
         }
 
@@ -107,7 +107,7 @@ public class Livraison implements Comparable<Livraison> {
      * @return true s'il reste des tentatives, false sinon.
      */
     public boolean resteTentatives() {
-        return this.MAX_TENTATIVES > 0;
+        return this.tentative < MAX_TENTATIVES;
     }
 
     /**
@@ -117,7 +117,7 @@ public class Livraison implements Comparable<Livraison> {
      */
     @Override
     public String toString() {
-        return this.id + " " + this.lot + " " + this.priorite + " " + this.tentative;
+        return this.id + " " + this.lot + " " + this.priorite + " " + this.tentative + " " + this.statut;
     }
 
     /**

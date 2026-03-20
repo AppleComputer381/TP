@@ -1,15 +1,16 @@
 package com.gestionnaireLivraisons;
 
 /**
- * La classe de livreur en camion
+ * La classe de livreur en voiture
  */
-public class LivreurCamion extends Livreur {
-    private static final String TRANSPORT = "CAMION";
-    private static final int CAPACITE = 8;
-    private static final double REVENU = 10.0;
+public class LivreurAuto extends Livreur {
+    // definition des constantes
+    private static final int CAPACITE = 5;
+    private static final double REVENU = 7.5;
+    private static final String TRANSPORT = "VOITURE";
 
     // Constructeur
-    public LivreurCamion(int id, String nom) {
+    public LivreurAuto(int id, String nom) {
         super(id, nom);
     }
 
@@ -27,4 +28,5 @@ public class LivreurCamion extends Livreur {
     public String getTransport() {
         return TRANSPORT;
     }
+
 }

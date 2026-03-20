@@ -74,7 +74,7 @@ public class GestionnaireLivraisons implements GestionnaireEvenement {
                             livreur = new LivreurCamion(idLivreur, nomLivreur);
                             break;
                         case "VOITURE":
-                            livreur = new LivreurVoiture(idLivreur, nomLivreur);
+                            livreur = new LivreurAuto(idLivreur, nomLivreur);
                             break;
                         default:
                             throw new IOException();
@@ -227,7 +227,7 @@ public class GestionnaireLivraisons implements GestionnaireEvenement {
                     livreur = new LivreurVelo(Integer.parseInt(argId), argNom);
 
                 } else if (argMode.equals("VOITURE")) {
-                    livreur = new LivreurVoiture(Integer.parseInt(argId), argNom);
+                    livreur = new LivreurAuto(Integer.parseInt(argId), argNom);
                 } else if (argMode.equals("CAMION")) {
                     livreur = new LivreurCamion(Integer.parseInt(argId), argNom);
                 } else {
@@ -236,13 +236,13 @@ public class GestionnaireLivraisons implements GestionnaireEvenement {
                 try {
                     this.livreursEnregistres.ajouter(livreur);
                 } catch (ListeChaineeException e) {
-                    return "BAD_ARGUMENT_ERROR-1";
+                    return "BAD_ARGUMENT_ERROR";
                 }
                 return "REGISTERED " + livreur.getId() + " " + livreur.getNom();
             }
 
         } catch (NumberFormatException e) {
-            return "BAD_ARGUMENT_ERROR-2";
+            return "BAD_ARGUMENT_ERROR";
         }
 
     }
@@ -262,6 +262,7 @@ public class GestionnaireLivraisons implements GestionnaireEvenement {
                 while (nbLivraisonsEnCours < capaciteLivraison && !this.livraisonsAEffectuer.estVide()) {
                     Livraison livraison = this.livraisonsAEffectuer.retirer();
                     livraison.setStatut(Statut.EN_COURS);
+                    livraison.nouvelleTentative();
                     livreur.ajouterLivraisonEnCours(livraison);
                     nbLivraisonsEnCours++;
                 }
@@ -427,11 +428,11 @@ public class GestionnaireLivraisons implements GestionnaireEvenement {
         String argId = args.extraireArgumentSuivant();
         String destinataire = args.extraireArgumentSuivant();
         String argMessage = args.lire();
-        if (this.messagesId.contains(argId)) {
-            return "ACK " + argId;
-        }
         if (argId == null || destinataire == null || argMessage == null) {
             return "BAD_ARGUMENT_ERROR";
+        }
+        if (this.messagesId.contains(argId)) {
+            return "ACK " + argId;
         }
 
         if (destinataire.equals("*")) {
@@ -445,10 +446,14 @@ public class GestionnaireLivraisons implements GestionnaireEvenement {
         } else {
             for (Connexion cnx : this.livreursAuthentifies.keySet()) {
                 Livreur livreurDest = this.livreursAuthentifies.get(cnx);
-                if (livreurDest.getId() == Integer.parseInt(destinataire)) {
-                    cnx.envoyer("MSG " + expediteur.getId() + " " + argMessage);
-                    this.messagesId.add(argId);
-                    return "ACK " + argId;
+                try {
+                    if (livreurDest.getId() == Integer.parseInt(destinataire)) {
+                        cnx.envoyer("MSG " + expediteur.getId() + " " + argMessage);
+                        this.messagesId.add(argId);
+                        return "ACK " + argId;
+                    }
+                } catch (NumberFormatException e) {
+                    return "BAD_ARGUMENT_ERROR";
                 }
             }
             return "BAD_ARGUMENT_ERROR";
@@ -513,7 +518,7 @@ public class GestionnaireLivraisons implements GestionnaireEvenement {
                     reponse = this.traiterSEND(evenement);
                     break;
                 default: // La commande envoyée par le client n'a pas été reconnue.
-                    this.traiterCOMMAND_ERROR();
+                    reponse = this.traiterCOMMAND_ERROR();
             }
 
             cnx.envoyer(reponse);

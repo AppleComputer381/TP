@@ -70,8 +70,8 @@ public class LivraisonFactory {
         FilePrioriteLivraisons filePrioriteLivraisons = new FilePrioriteLivraisons();
         for (String data : dataLivraisons) {
             String[] dataSplit = data.split(":");
-            Livraison Livraison = new Livraison(Priorite.valueOf(dataSplit[1]), Integer.parseInt(dataSplit[0]));
-            filePrioriteLivraisons.ajouter(Livraison);
+            Livraison livraison = new Livraison(Priorite.valueOf(dataSplit[1]), Integer.parseInt(dataSplit[0]));
+            filePrioriteLivraisons.ajouter(livraison);
         }
         return filePrioriteLivraisons;
     }

@@ -58,6 +58,9 @@ public class ListeChaineeLivreurs implements IListeChaineeLivreurs {
             Noeud temp = this.tete.suivant;
             while (temp != null) {
                 if (temp.livreur.getId() == idLivreur) {
+                    if (temp == this.dernier) {
+                        this.dernier = precedent;
+                    }
                     precedent.suivant = temp.suivant;
                     this.nbreElements--;
                     return;

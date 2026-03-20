@@ -112,15 +112,15 @@ public class TestListeLivraisons {
     private static void testTaille() {
         System.out.print("Test taille : ");
         ListeLivraisons liste = new ListeLivraisons();
-        Livraison FirstLivraison = new Livraison(Priorite.NORMALE, 1);
-        Livraison SecondLivraison = new Livraison(Priorite.URGENTE, 1);
-        Livraison TreeLivraison = new Livraison(Priorite.NORMALE, 2);
-        Livraison ForLivraison = new Livraison(Priorite.URGENTE, 2);
+        Livraison firstLivraison = new Livraison(Priorite.NORMALE, 1);
+        Livraison secondLivraison = new Livraison(Priorite.URGENTE, 1);
+        Livraison treeLivraison = new Livraison(Priorite.NORMALE, 2);
+        Livraison fourLivraison = new Livraison(Priorite.URGENTE, 2);
 
-        liste.ajouter(FirstLivraison);
-        liste.ajouter(SecondLivraison);
-        liste.ajouter(TreeLivraison);
-        liste.ajouter(ForLivraison);
+        liste.ajouter(firstLivraison);
+        liste.ajouter(secondLivraison);
+        liste.ajouter(treeLivraison);
+        liste.ajouter(fourLivraison);
         if (liste.taille() == 4) {
             System.out.println("OK");
         } else {
@@ -131,15 +131,15 @@ public class TestListeLivraisons {
     private static void testRechercherNonExistant() {
         System.out.print("Test rechercher inexistante : ");
         ListeLivraisons liste = new ListeLivraisons();
-        Livraison FirstLivraison = new Livraison(Priorite.NORMALE, 1);
-        Livraison SecondLivraison = new Livraison(Priorite.URGENTE, 1);
-        Livraison ThreeLivraison = new Livraison(Priorite.NORMALE, 2);
-        Livraison FourLivraison = new Livraison(Priorite.URGENTE, 2);
+        Livraison firstLivraison = new Livraison(Priorite.NORMALE, 1);
+        Livraison secondLivraison = new Livraison(Priorite.URGENTE, 1);
+        Livraison threeLivraison = new Livraison(Priorite.NORMALE, 2);
+        Livraison fourLivraison = new Livraison(Priorite.URGENTE, 2);
 
-        liste.ajouter(FirstLivraison);
-        liste.ajouter(SecondLivraison);
-        liste.ajouter(ThreeLivraison);
-        liste.ajouter(FourLivraison);
+        liste.ajouter(firstLivraison);
+        liste.ajouter(secondLivraison);
+        liste.ajouter(threeLivraison);
+        liste.ajouter(fourLivraison);
         if (liste.rechercher(5) == null) {
             System.out.println("OK");
         } else {

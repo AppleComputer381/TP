@@ -45,6 +45,8 @@ public abstract class Livreur {
         return this.nom;
     }
 
+    public abstract String getTransport();
+
     /**
      * Vérifie si un livreur a des livraisons en cours.
      *
@@ -143,5 +145,9 @@ public abstract class Livreur {
      */
     public int nbLivraisonsEffectuees() {
         return this.livraisonsEffectuees.taille();
+    }
+
+    public String toString() {
+        return this.getId() + " " + this.getTransport() + " " + this.getNom();
     }
 }
