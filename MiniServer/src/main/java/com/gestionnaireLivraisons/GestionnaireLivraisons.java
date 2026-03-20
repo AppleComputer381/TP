@@ -271,7 +271,7 @@ public class GestionnaireLivraisons implements GestionnaireEvenement {
             while (it.hasNext()) {
                 Livraison livraison = it.next();
                 reponse += livraison.getId() + " " + livraison.getLot() + " " + livraison.getPriorite() + " "
-                        + livraison.getTentative() + " ";
+                        + livraison.getTentative();
             }
             return "DELIVERIES " + String.valueOf(livreur.nbLivraisonsEnCours()) + " " + reponse;
         } else {
@@ -291,15 +291,18 @@ public class GestionnaireLivraisons implements GestionnaireEvenement {
         if (livreur != null) {
             Arguments arguments = new Arguments(evenement);
             String argId = arguments.extraireArgumentSuivant();
-            int idLivraison = Integer.parseInt(argId);
-            Livraison livraison = livreur.rechercherLivraisonEnCours(idLivraison);
-            if (livraison != null) {
-                livreur.supprimerLivraisonEnCours(idLivraison);
-                livreur.ajouterLivraisonEffectuee(livraison);
-                return "DELIVERED_OK " + String.valueOf(idLivraison);
-
-            } else {
-                return "BAD_DELIVERY_ERROR";
+            try {
+                int idLivraison = Integer.parseInt(argId);
+                Livraison livraison = livreur.rechercherLivraisonEnCours(idLivraison);
+                if (livraison != null) {
+                    livreur.supprimerLivraisonEnCours(idLivraison);
+                    livreur.ajouterLivraisonEffectuee(livraison);
+                    return "DELIVERED_OK " + String.valueOf(idLivraison);
+                } else {
+                    return "BAD_DELIVERY_ERROR";
+                }
+            } catch (NumberFormatException e) {
+                return "BAD_ARGUMENT_ERROR";
             }
 
         } else {
@@ -319,20 +322,24 @@ public class GestionnaireLivraisons implements GestionnaireEvenement {
         if (livreur != null) {
             Arguments arguments = new Arguments(evenement);
             String argId = arguments.extraireArgumentSuivant();
-            int idLivraison = Integer.parseInt(argId);
-            Livraison livraison = livreur.rechercherLivraisonEnCours(idLivraison);
-            if (livraison != null) {
-                livreur.supprimerLivraisonEnCours(idLivraison);
-                boolean possible = livraison.nouvelleTentative();
-                if (possible) {
-                    this.livraisonsAEffectuer.ajouter(livraison);
-                    return "FAILED_CONTINUE " + String.valueOf(idLivraison);
+            try {
+                int idLivraison = Integer.parseInt(argId);
+                Livraison livraison = livreur.rechercherLivraisonEnCours(idLivraison);
+                if (livraison != null) {
+                    livreur.supprimerLivraisonEnCours(idLivraison);
+                    boolean possible = livraison.nouvelleTentative();
+                    if (possible) {
+                        this.livraisonsAEffectuer.ajouter(livraison);
+                        return "FAILED_CONTINUE " + String.valueOf(idLivraison);
+                    } else {
+                        this.livraisonsEchouees.ajouter(livraison);
+                        return "FAILED_ABORT " + String.valueOf(idLivraison);
+                    }
                 } else {
-                    this.livraisonsEchouees.ajouter(livraison);
-                    return "FAILED_ABORT " + String.valueOf(idLivraison);
+                    return "BAD_DELIVERY_ERROR";
                 }
-            } else {
-                return "BAD_DELIVERY_ERROR";
+            } catch (NumberFormatException e) {
+                return "BAD_ARGUMENT_ERROR";
             }
         } else {
             return "AUTHENTICATION_ERROR";
@@ -347,7 +354,7 @@ public class GestionnaireLivraisons implements GestionnaireEvenement {
     private String traiterINCOME(Evenement evenement) {
         Livreur livreur = this.livreursAuthentifies.get(evenement.getSource());
         if (livreur != null) {
-            return "REVENUE " + String.valueOf(livreur.calculerRevenu()) + " "
+            return "REVENU " + String.valueOf(livreur.calculerRevenu()) + " "
                     + String.valueOf(livreur.nbLivraisonsEffectuees());
         } else {
             return "AUTHENTICATION_ERROR";
@@ -369,13 +376,12 @@ public class GestionnaireLivraisons implements GestionnaireEvenement {
         Arguments arg = new Arguments(evenement);
         String strIdLivraison = arg.extraireArgumentSuivant();
         if (strIdLivraison != null) {
-
             try {
                 int idLivraison = Integer.parseInt(strIdLivraison);
                 Livraison livraison = livreur.rechercherLivraisonEnCours(idLivraison);
                 if (livraison != null) {
                     return "DELIVERIES_INFO 1" + " " + livraison.getId() + " " + livraison.getLot() + " "
-                            + livraison.getPriorite() + " " + livraison.getTentative() + " ";
+                            + livraison.getPriorite() + " " + livraison.getTentative();
                 } else {
                     return "BAD_DELIVERY_ERROR";
                 }
