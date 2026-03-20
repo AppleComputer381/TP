@@ -29,7 +29,6 @@ public class Livraison implements Comparable<Livraison>
      * @param priorite La priorité de la nouvelle livraison.
      * @param lot      Le lot auquel cette livraison appartient.
      */
-    // TODO : À compléter/modifier
     public Livraison(Priorite priorite, int lot) {
         this.priorite = priorite;
         this.lot = lot;
@@ -41,7 +40,6 @@ public class Livraison implements Comparable<Livraison>
      * Produit un nouvel ID pour la Livraison
      */
     private static int prochainID() {
-        // TODO : À compléter/modifier
         compteurID++;
 
         // System.err.println("Méthode Livraison::prochainID non implémentée");
@@ -54,7 +52,6 @@ public class Livraison implements Comparable<Livraison>
      * @return L'id de cette livraison.
      */
     public int getId() {
-        // TODO : À compléter/modifier
         return this.id;
     }
 
@@ -63,7 +60,6 @@ public class Livraison implements Comparable<Livraison>
      *
      * @return La priorite de cette livraison.
      */
-    // TODO : À compléter/modifier
     public Priorite getPriorite() {
         return this.priorite;
     }
@@ -74,7 +70,6 @@ public class Livraison implements Comparable<Livraison>
      * @return La tentative de cette livraison.
      */
     public int getTentative() {
-        // TODO : À compléter/modifier
         return this.tentative;
     }
 
@@ -84,7 +79,6 @@ public class Livraison implements Comparable<Livraison>
      * @return Le lot de cette livraison.
      */
     public int getLot() {
-        // TODO : À compléter/modifier
         return this.lot;
     }
 
@@ -93,7 +87,6 @@ public class Livraison implements Comparable<Livraison>
      *
      */
     public void setStatut(Statut statut) {
-        // TODO : À compléter/modifier
         this.statut = statut;
     }
 
@@ -130,12 +123,7 @@ public class Livraison implements Comparable<Livraison>
      */
     @Override
     public String toString() {
-        // TODO : À compléter/modifier
-        System.out.println("la livraison d'identifiant: " + this.id + " appartenant au lot: " + this.lot
-                + " de priorité: "
-                + this.priorite + " avec le statut: " + this.statut + " a été tenté d'etre livré: " + this.tentative);
-        // System.err.println("Méthode Livraison::toString non implémentée");
-        return null;
+        return this.id + " " + this.lot + " " + this.priorite + " " + this.tentative;
     }
 
     /**
@@ -144,7 +132,6 @@ public class Livraison implements Comparable<Livraison>
      * @param autreLivraison La seconde livraison à comparer avec cette livraison.
      * @return Le résultat de la comparaison au sens de l'interface Comparable<T>.
      */
-    // TODO : À compléter/modifier
     public int compareTo(Livraison autreLivraison) {
         if (this.lot < autreLivraison.lot) {
             return -1;

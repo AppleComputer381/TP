@@ -128,6 +128,25 @@ public class TestListeLivraisons {
         }
     }
 
+    private static void testRechercherNonExistant() {
+        System.out.print("Test rechercher inexistante : ");
+        ListeLivraisons liste = new ListeLivraisons();
+        Livraison FirstLivraison = new Livraison(Priorite.NORMALE, 1);
+        Livraison SecondLivraison = new Livraison(Priorite.URGENTE, 1);
+        Livraison ThreeLivraison = new Livraison(Priorite.NORMALE, 2);
+        Livraison FourLivraison = new Livraison(Priorite.URGENTE, 2);
+
+        liste.ajouter(FirstLivraison);
+        liste.ajouter(SecondLivraison);
+        liste.ajouter(ThreeLivraison);
+        liste.ajouter(FourLivraison);
+        if (liste.rechercher(5) == null) {
+            System.out.println("OK");
+        } else {
+            System.out.println("NOK");
+        }
+    }
+
     /**
      * Lancements des tests pour la classe ListeChaineeLivreurs.
      */
@@ -137,6 +156,7 @@ public class TestListeLivraisons {
         TestListeLivraisons.testAjouter();
         TestListeLivraisons.testSupprimer();
         TestListeLivraisons.testRechercher();
+        TestListeLivraisons.testRechercherNonExistant();
         TestListeLivraisons.testVider();
         TestListeLivraisons.testEstVide();
         TestListeLivraisons.testTaille();

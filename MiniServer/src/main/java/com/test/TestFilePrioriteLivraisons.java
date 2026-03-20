@@ -43,7 +43,6 @@ public class TestFilePrioriteLivraisons {
      */
     private static void testAjouterTout() {
         System.out.println("Test ajouterTout : ");
-        String result = "";
         FilePrioriteLivraisons file = new FilePrioriteLivraisons();
         Livraison FirstLivraison = new Livraison(Priorite.NORMALE, 1);
         Livraison SecondLivraison = new Livraison(Priorite.URGENTE, 1);
@@ -63,7 +62,6 @@ public class TestFilePrioriteLivraisons {
      */
     private static void testTaille() {
         System.out.println("Test taille : ");
-        String result = "";
         FilePrioriteLivraisons file = new FilePrioriteLivraisons();
         Livraison FirstLivraison = new Livraison(Priorite.NORMALE, 1);
         Livraison SecondLivraison = new Livraison(Priorite.URGENTE, 1);
@@ -80,7 +78,6 @@ public class TestFilePrioriteLivraisons {
      */
     private static void testRetirer() {
         System.out.println("Test retirer : ");
-        String result = "";
         FilePrioriteLivraisons file = new FilePrioriteLivraisons();
         Livraison FirstLivraison = new Livraison(Priorite.NORMALE, 1);
         Livraison SecondLivraison = new Livraison(Priorite.URGENTE, 1);

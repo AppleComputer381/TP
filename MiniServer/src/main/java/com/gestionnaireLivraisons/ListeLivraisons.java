@@ -8,7 +8,6 @@ import java.util.ListIterator;
  */
 public class ListeLivraisons implements IListeLivraisons {
     // Les livraisons stockées dans une ArrayList
-    // TODO : À compléter/modifier
     private ArrayList<Livraison> listeLivraisons;
 
     public ListeLivraisons() {
@@ -48,13 +47,13 @@ public class ListeLivraisons implements IListeLivraisons {
      * @return La livraison trouvée ou null si non trouvée.
      */
     public Livraison rechercher(int idLivraison) {
-        for (Livraison livraison : listeLivraisons) {
-            if (livraison.getId() == idLivraison) {
-                return livraison;
-            }
+        int indice = this.chercher(idLivraison);
+        if (indice == -1) {
+            return null;
+        } else {
+            Livraison livraison = this.listeLivraisons.get(indice);
+            return livraison;
         }
-
-        return null;
     }
 
     /**

@@ -68,15 +68,12 @@ public class GestionnaireLivraisons implements GestionnaireEvenement {
                     // Créer le livreur avec le constructeur approprié
                     switch (typeLivreur) {
                         case "VELO":
-                            // TODO : À compléter/modifier
                             livreur = new LivreurVelo(idLivreur, nomLivreur);
                             break;
                         case "CAMION":
-                            // TODO : À compléter/modifier
                             livreur = new LivreurCamion(idLivreur, nomLivreur);
                             break;
                         case "VOITURE":
-                            // TODO : À compléter/modifier
                             livreur = new LivreurVoiture(idLivreur, nomLivreur);
                             break;
                         default:
@@ -139,8 +136,10 @@ public class GestionnaireLivraisons implements GestionnaireEvenement {
      *
      */
     public void afficherStatistiques() {
-        // TODO : À compléter/modifier
-        System.err.println("Méthode GestionnaireLivraisons::afficherStatistiques non implémentée");
+        System.out.println("Statistiques des livraisons :");
+        System.out.println("Nombre total de livraisons a effectuer : " + this.livraisonsAEffectuer.taille());
+        System.out.println("Nombre de livreurs connectes : " + this.livreursAuthentifies.size());
+        System.out.println("Nombre de livreurs enregistres : " + this.livreursEnregistres.taille());
     }
 
     /**
@@ -405,9 +404,44 @@ public class GestionnaireLivraisons implements GestionnaireEvenement {
      * @return La chaine constituant la réponse à retourner au client.
      */
     private String traiterSEND(Evenement evenement) {
-        // TODO : À compléter/modifier
-        System.err.println("Méthode GestionnaireLivraisons::traiterSEND non implémentée");
-        return "";
+
+        Livreur expediteur = this.livreursAuthentifies.get(evenement.getSource());
+
+        if (expediteur == null) {
+            return "AUTHENTICATION_ERROR";
+        }
+        Arguments args = new Arguments(evenement);
+        String argId = args.extraireArgumentSuivant();
+        String destinataire = args.extraireArgumentSuivant();
+        String argMessage = args.lire();
+        if (this.messagesId.contains(argId)) {
+            return "ACK " + argId;
+        }
+        if (argId == null || destinataire == null || argMessage == null) {
+            return "BAD_ARGUMENT_ERROR";
+        }
+
+        if (destinataire.equals("*")) {
+            for (Connexion connexion : this.livreursAuthentifies.keySet()) {
+                if (connexion != evenement.getSource()) {
+                    connexion.envoyer("MSG " + expediteur.getId() + " " + argMessage);
+                }
+            }
+            this.messagesId.add(argId);
+            return "ACK " + argId;
+        } else {
+            for (Connexion cnx : this.livreursAuthentifies.keySet()) {
+                Livreur livreurDest = this.livreursAuthentifies.get(cnx);
+                if (livreurDest.getId() == Integer.parseInt(destinataire)) {
+                    cnx.envoyer("MSG " + expediteur.getId() + " " + argMessage);
+                    this.messagesId.add(argId);
+                    return "ACK " + argId;
+                }
+            }
+            return "BAD_ARGUMENT_ERROR";
+
+        }
+
     }
 
     /**
