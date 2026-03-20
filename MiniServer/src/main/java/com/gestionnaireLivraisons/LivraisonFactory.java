@@ -9,7 +9,8 @@ import java.util.ArrayList;
  */
 public class LivraisonFactory {
 
-    // Pour stocker les données des livraisons, sous la forme de chaines de caractères.
+    // Pour stocker les données des livraisons, sous la forme de chaines de
+    // caractères.
     // Chaque chaine de caractères contient les données d'une livraison
     // Les données d'une livraison sont séparées par le 2 points ":"
     private static String[] dataLivraisons;
@@ -64,11 +65,15 @@ public class LivraisonFactory {
      *
      * @return
      */
-    // new//  FilePrioriteLivraisons();
+    // new// FilePrioriteLivraisons();
     public static FilePrioriteLivraisons populateFileLivraisons() {
-        // TODO : À compléter/modifier
-        System.err.println("Méthode LivraisonFactory::populateFileLivraisons non implémentée");
-        return null;
+        FilePrioriteLivraisons filePrioriteLivraisons = new FilePrioriteLivraisons();
+        for (String data : dataLivraisons) {
+            String[] dataSplit = data.split(":");
+            Livraison livraison = new Livraison(Priorite.valueOf(dataSplit[1]), Integer.parseInt(dataSplit[0]));
+            filePrioriteLivraisons.ajouter(livraison);
+        }
+        return filePrioriteLivraisons;
     }
 
     /**

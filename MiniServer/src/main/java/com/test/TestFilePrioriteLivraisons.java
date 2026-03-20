@@ -2,7 +2,7 @@ package com.test;
 
 import com.gestionnaireLivraisons.FilePrioriteLivraisons;
 import com.gestionnaireLivraisons.Livraison;
-// TODO : À compléter/modifier
+import com.gestionnaireLivraisons.Priorite;
 
 import java.util.Arrays;
 import java.util.Random;
@@ -12,50 +12,108 @@ public class TestFilePrioriteLivraisons {
      * Test de la méthode estVide.
      */
     private static void testEstVide() {
+        FilePrioriteLivraisons file = new FilePrioriteLivraisons();
         System.out.print("Test estVide : ");
+        if (file.estVide()) {
+            System.out.println("OK");
+        } else {
+            System.out.println("NOK");
+        }
 
-        // TODO : À compléter/modifier
-        System.err.println("Méthode TestFilePrioriteLivraisons::testEstVide() non implémentée");
     }
 
     /**
      * Test de la méthode ajouter.
      */
     private static void testAjouter() {
-        System.out.print("Test ajouter : ");
+        System.out.println("Test ajouter : ");
+        FilePrioriteLivraisons file = new FilePrioriteLivraisons();
+        Livraison FirstLivraison = new Livraison(Priorite.NORMALE, 1);
+        file.ajouter(FirstLivraison);
+        if (file.estVide()) {
+            System.out.println("NOK");
+        } else {
+            System.out.println("OK");
+        }
 
-        // TODO : À compléter/modifier
-        System.err.println("Méthode TestFilePrioriteLivraisons::testAjouter() non implémentée");
     }
 
     /**
      * Test de la méthode ajouterTout.
      */
     private static void testAjouterTout() {
-        System.out.print("Test ajouterTout : ");
+        System.out.println("Test ajouterTout : ");
+        FilePrioriteLivraisons file = new FilePrioriteLivraisons();
+        Livraison firstLivraison = new Livraison(Priorite.NORMALE, 1);
+        Livraison secondLivraison = new Livraison(Priorite.URGENTE, 1);
+        Livraison treeLivraison = new Livraison(Priorite.NORMALE, 2);
+        Livraison fourLivraison = new Livraison(Priorite.URGENTE, 2);
+        file.ajouterTout(Arrays.asList(firstLivraison, secondLivraison, treeLivraison, fourLivraison));
 
-        // TODO : À compléter/modifier
-        System.err.println("Méthode TestFilePrioriteLivraisons::testAjouterTout() non implémentée");
+        if (file.taille() == 4) {
+            System.out.println("OK");
+        } else {
+            System.out.println("NOK");
+        }
     }
 
     /**
      * Test de la méthode taille.
      */
     private static void testTaille() {
-        System.out.print("Test taille : ");
-
-        // TODO : À compléter/modifier
-        System.err.println("Méthode TestFilePrioriteLivraisons::testTaille() non implémentée");
+        System.out.println("Test taille : ");
+        FilePrioriteLivraisons file = new FilePrioriteLivraisons();
+        Livraison firstLivraison = new Livraison(Priorite.NORMALE, 1);
+        Livraison secondLivraison = new Livraison(Priorite.URGENTE, 1);
+        file.ajouterTout(Arrays.asList(firstLivraison, secondLivraison));
+        if (file.taille() == 2) {
+            System.out.println("OK");
+        } else {
+            System.out.println("NOK");
+        }
     }
 
     /**
      * Test de la méthode retirer.
      */
     private static void testRetirer() {
-        System.out.print("Test retirer : ");
+        System.out.println("Test retirer : ");
+        FilePrioriteLivraisons file = new FilePrioriteLivraisons();
+        Livraison firstLivraison = new Livraison(Priorite.NORMALE, 1);
+        Livraison secondLivraison = new Livraison(Priorite.URGENTE, 1);
+        file.ajouterTout(Arrays.asList(firstLivraison, secondLivraison));
+        file.retirer();
+        if (file.taille() == 1) {
+            System.out.println("OK");
+        } else {
+            System.out.println("NOK");
+        }
+    }
 
-        // TODO : À compléter/modifier
-        System.err.println("Méthode TestFilePrioriteLivraisons::testRetirer() non implémentée");
+    /**
+     * Test de l'ordre de priorité (compareTo de Livraison).
+     */
+    private static void testOrdrePriorite() {
+        System.out.print("Test ordre de priorité (compareTo) : ");
+        FilePrioriteLivraisons file = new FilePrioriteLivraisons();
+
+        Livraison l1 = new Livraison(Priorite.NORMALE, 2);
+        Livraison l2 = new Livraison(Priorite.URGENTE, 1);
+        Livraison l3 = new Livraison(Priorite.NORMALE, 1);
+        Livraison l4 = new Livraison(Priorite.NORMALE, 1);
+        l4.nouvelleTentative();
+        l4.nouvelleTentative();
+
+        file.ajouterTout(Arrays.asList(l1, l2, l3, l4));
+
+        if (file.retirer() == l2 &&
+                file.retirer() == l4 &&
+                file.retirer() == l3 &&
+                file.retirer() == l1) {
+            System.out.println("OK");
+        } else {
+            System.out.println("NOK");
+        }
     }
 
     /**
@@ -69,5 +127,6 @@ public class TestFilePrioriteLivraisons {
         TestFilePrioriteLivraisons.testAjouterTout();
         TestFilePrioriteLivraisons.testTaille();
         TestFilePrioriteLivraisons.testRetirer();
+        TestFilePrioriteLivraisons.testOrdrePriorite();
     }
 }

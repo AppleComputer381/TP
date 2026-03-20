@@ -2,17 +2,22 @@ package com.gestionnaireLivraisons;
 
 import java.util.ArrayList;
 
+import javax.lang.model.util.ElementScanner14;
+
 /**
  * La classe qui modélise une livraison.
  */
-public class Livraison
-        // TODO : À compléter/modifier
-{
+public class Livraison implements Comparable<Livraison> {
     // Les données membres statiques
-    // TODO : À compléter/modifier
+    private static final int MAX_TENTATIVES = 3;
 
     // Les attributs d'instance
-    // TODO : À compléter/modifier
+    private int id;
+    private Priorite priorite;
+    private int tentative = 0;
+    private int lot;
+    private Statut statut;
+    private static int compteurID = 0;
 
     /**
      * Constructeur d'une livraison.
@@ -20,15 +25,20 @@ public class Livraison
      * @param priorite La priorité de la nouvelle livraison.
      * @param lot      Le lot auquel cette livraison appartient.
      */
-    // TODO : À compléter/modifier
+    public Livraison(Priorite priorite, int lot) {
+        this.priorite = priorite;
+        this.lot = lot;
+        this.id = prochainID();
+        this.statut = Statut.EN_ATTENTE;
+
+    }
 
     /**
      * Produit un nouvel ID pour la Livraison
      */
     private static int prochainID() {
-        // TODO : À compléter/modifier
-        System.err.println("Méthode Livraison::prochainID non implémentée");
-        return 0;
+        compteurID++;
+        return compteurID;
     }
 
     /**
@@ -37,9 +47,7 @@ public class Livraison
      * @return L'id de cette livraison.
      */
     public int getId() {
-        // TODO : À compléter/modifier
-        System.err.println("Méthode Livraison::getId non implémentée");
-        return 0;
+        return this.id;
     }
 
     /**
@@ -47,7 +55,9 @@ public class Livraison
      *
      * @return La priorite de cette livraison.
      */
-    // TODO : À compléter/modifier
+    public Priorite getPriorite() {
+        return this.priorite;
+    }
 
     /**
      * Retourne la tentative pour cette livraison.
@@ -55,9 +65,7 @@ public class Livraison
      * @return La tentative de cette livraison.
      */
     public int getTentative() {
-        // TODO : À compléter/modifier
-        System.err.println("Méthode Livraison::getTentative non implémentée");
-        return 0;
+        return this.tentative;
     }
 
     /**
@@ -66,9 +74,7 @@ public class Livraison
      * @return Le lot de cette livraison.
      */
     public int getLot() {
-        // TODO : À compléter/modifier
-        System.err.println("Méthode Livraison::getLot non implémentée");
-        return 0;
+        return this.lot;
     }
 
     /**
@@ -76,17 +82,23 @@ public class Livraison
      *
      */
     public void setStatut(Statut statut) {
-        // TODO : À compléter/modifier
-        System.err.println("Méthode Livraison::setStatut non implémentée");
+        this.statut = statut;
     }
 
     /**
      * Ajoute UN au numéro de tentative pour cette livraison.
      *
      */
-    public void nouvelleTentative() {
-        // TODO : À compléter/modifier
-        System.err.println("Méthode Livraison::nouvelleTentative non implémentée");
+    public boolean nouvelleTentative() {
+        if (this.tentative == MAX_TENTATIVES) {
+            return false;
+
+        } else {
+            this.tentative++;
+            return true;
+        }
+
+        // System.err.println("Méthode Livraison::nouvelleTentative non implémentée");
     }
 
     /**
@@ -95,9 +107,7 @@ public class Livraison
      * @return true s'il reste des tentatives, false sinon.
      */
     public boolean resteTentatives() {
-        // TODO : À compléter/modifier
-        System.err.println("Méthode Livraison::resteTentatives non implémentée");
-        return false;
+        return this.tentative < MAX_TENTATIVES;
     }
 
     /**
@@ -107,9 +117,7 @@ public class Livraison
      */
     @Override
     public String toString() {
-        // TODO : À compléter/modifier
-        System.err.println("Méthode Livraison::toString non implémentée");
-        return null;
+        return this.id + " " + this.lot + " " + this.priorite + " " + this.tentative + " " + this.statut;
     }
 
     /**
@@ -118,5 +126,26 @@ public class Livraison
      * @param autreLivraison La seconde livraison à comparer avec cette livraison.
      * @return Le résultat de la comparaison au sens de l'interface Comparable<T>.
      */
-    // TODO : À compléter/modifier
+    public int compareTo(Livraison autreLivraison) {
+        if (this.lot < autreLivraison.lot) {
+            return -1;
+        } else if (this.lot > autreLivraison.lot) {
+            return 1;
+        } else {
+            if (this.priorite == Priorite.URGENTE && autreLivraison.priorite == Priorite.NORMALE) {
+                return -1;
+            } else if (this.priorite == Priorite.NORMALE && autreLivraison.priorite == Priorite.URGENTE) {
+                return 1;
+            } else {
+                if (this.tentative > autreLivraison.tentative) {
+                    return -1;
+                } else if (this.tentative < autreLivraison.tentative) {
+                    return 1;
+                } else {
+                    return 0;
+                }
+            }
+        }
+    }
+
 }

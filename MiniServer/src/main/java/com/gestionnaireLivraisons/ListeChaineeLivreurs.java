@@ -1,6 +1,5 @@
 package com.gestionnaireLivraisons;
 
-
 public class ListeChaineeLivreurs implements IListeChaineeLivreurs {
     private Noeud tete;
     private Noeud dernier;
@@ -9,7 +8,11 @@ public class ListeChaineeLivreurs implements IListeChaineeLivreurs {
     /**
      * Constructeur
      */
-    // TODO : À compléter/modifier
+    public ListeChaineeLivreurs() {
+        this.tete = null;
+        this.dernier = null;
+        this.nbreElements = 0;
+    }
 
     /**
      * Ajoute un objet Livreur à la fin de la liste
@@ -19,7 +22,19 @@ public class ListeChaineeLivreurs implements IListeChaineeLivreurs {
      */
     @Override
     public void ajouter(Livreur unLivreur) throws ListeChaineeException {
-        // TODO : À compléter/modifier
+        if (this.rechercher(unLivreur.getId()) != null) {
+            throw new ListeChaineeException("Le livreur est déjà dans la liste");
+        } else {
+            if (this.tete == null) {
+                this.tete = new Noeud(unLivreur);
+                this.dernier = this.tete;
+            } else {
+                this.dernier.suivant = new Noeud(unLivreur);
+                this.dernier = this.dernier.suivant;
+            }
+            this.nbreElements++;
+        }
+
     }
 
     /**
@@ -30,7 +45,34 @@ public class ListeChaineeLivreurs implements IListeChaineeLivreurs {
      */
     @Override
     public void supprimer(int idLivreur) throws ListeChaineeException {
-        // TODO : À compléter/modifier
+
+        if (this.tete == null) {
+            throw new ListeChaineeException("La liste est vide");
+        }
+        if (this.tete.livreur.getId() == idLivreur) {
+            this.tete = this.tete.suivant;
+            this.nbreElements--;
+            return;
+        } else {
+            Noeud precedent = this.tete;
+            Noeud temp = this.tete.suivant;
+            while (temp != null) {
+                if (temp.livreur.getId() == idLivreur) {
+                    if (temp == this.dernier) {
+                        this.dernier = precedent;
+                    }
+                    precedent.suivant = temp.suivant;
+                    this.nbreElements--;
+                    return;
+                } else {
+                    precedent = temp;
+                    temp = temp.suivant;
+                }
+            }
+
+            throw new ListeChaineeException("Livreur non présent dans la liste.");
+        }
+
     }
 
     /**
@@ -41,7 +83,26 @@ public class ListeChaineeLivreurs implements IListeChaineeLivreurs {
      */
     @Override
     public Livreur rechercher(int idLivreur) {
-        // TODO : À compléter/modifier
+        if (this.tete == null) {
+            return null;
+            // si il n'y a qu'un seul element
+        } else if (this.tete == this.dernier) {
+            if (this.tete.livreur.getId() == idLivreur) {
+                return this.tete.livreur;
+            } else {
+                return null;
+            }
+        } else {
+            Noeud temp = this.tete;
+            while (temp != null) {
+                if (temp.livreur.getId() == idLivreur) {
+                    return temp.livreur;
+                } else {
+                    temp = temp.suivant;
+                }
+            }
+        }
+
         return null;
     }
 
@@ -52,8 +113,7 @@ public class ListeChaineeLivreurs implements IListeChaineeLivreurs {
      */
     @Override
     public int taille() {
-        // TODO : À compléter/modifier
-        return 0;
+        return this.nbreElements;
     }
 
     /**
@@ -62,8 +122,15 @@ public class ListeChaineeLivreurs implements IListeChaineeLivreurs {
      * @return Le tableau de livreurs.
      */
     public Livreur[] toArray() {
-        // TODO : À compléter/modifier
-        return null;
+        Livreur[] tab = new Livreur[this.nbreElements];
+        int i = 0;
+        Noeud temp = this.tete;
+        while (i < this.nbreElements) {
+            tab[i] = temp.livreur;
+            i++;
+            temp = temp.suivant;
+        }
+        return tab;
     }
 
     /**
