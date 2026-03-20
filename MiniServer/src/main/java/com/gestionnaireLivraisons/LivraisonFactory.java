@@ -74,9 +74,6 @@ public class LivraisonFactory {
             filePrioriteLivraisons.ajouter(Livraison);
         }
         return filePrioriteLivraisons;
-        // TODO : À compléter/modifier
-        // System.err.println("Méthode LivraisonFactory::populateFileLivraisons non
-        // implémentée");
     }
 
     /**

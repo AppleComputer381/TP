@@ -2,4 +2,3 @@
 101 VELO Pierre
 102 CAMION Paul
 103 VOITURE Jacques
-200 CAMION Sarah

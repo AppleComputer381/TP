@@ -8,7 +8,6 @@ public class ListeChaineeLivreurs implements IListeChaineeLivreurs {
     /**
      * Constructeur
      */
-    // TODO : À compléter/modifier
     public ListeChaineeLivreurs() {
         this.tete = null;
         this.dernier = null;
@@ -111,7 +110,7 @@ public class ListeChaineeLivreurs implements IListeChaineeLivreurs {
      */
     @Override
     public int taille() {
-        return nbreElements;
+        return this.nbreElements;
     }
 
     /**

@@ -7,15 +7,11 @@ import javax.lang.model.util.ElementScanner14;
 /**
  * La classe qui modélise une livraison.
  */
-public class Livraison implements Comparable<Livraison>
-// TODO : À compléter/modifier
-{
+public class Livraison implements Comparable<Livraison> {
     // Les données membres statiques
-    // TODO : À compléter/modifier
     private int MAX_TENTATIVES = 3;
 
     // Les attributs d'instance
-    // TODO : À compléter/modifier
     private int id;
     private Priorite priorite;
     private int tentative = 0;
@@ -41,8 +37,6 @@ public class Livraison implements Comparable<Livraison>
      */
     private static int prochainID() {
         compteurID++;
-
-        // System.err.println("Méthode Livraison::prochainID non implémentée");
         return compteurID;
     }
 

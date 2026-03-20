@@ -154,6 +154,7 @@ public class GestionnaireLivraisons implements GestionnaireEvenement {
             Iterator<Livraison> livreurLivraisonsEnCours = livreur.donneIterateurLivraisonsEnCours();
             while (livreurLivraisonsEnCours.hasNext()) {
                 Livraison livraison = livreurLivraisonsEnCours.next();
+                livraison.setStatut(Statut.EN_ATTENTE);
                 this.livraisonsAEffectuer.ajouter(livraison);
                 livreurLivraisonsEnCours.remove();
             }
@@ -259,7 +260,9 @@ public class GestionnaireLivraisons implements GestionnaireEvenement {
             int nbLivraisonsEnCours = livreur.nbLivraisonsEnCours();
             if (nbLivraisonsEnCours < capaciteLivraison) {
                 while (nbLivraisonsEnCours < capaciteLivraison && !this.livraisonsAEffectuer.estVide()) {
-                    livreur.ajouterLivraisonEnCours(this.livraisonsAEffectuer.retirer());
+                    Livraison livraison = this.livraisonsAEffectuer.retirer();
+                    livraison.setStatut(Statut.EN_COURS);
+                    livreur.ajouterLivraisonEnCours(livraison);
                     nbLivraisonsEnCours++;
                 }
             }
@@ -295,6 +298,7 @@ public class GestionnaireLivraisons implements GestionnaireEvenement {
                 int idLivraison = Integer.parseInt(argId);
                 Livraison livraison = livreur.rechercherLivraisonEnCours(idLivraison);
                 if (livraison != null) {
+                    livraison.setStatut(Statut.LIVREE);
                     livreur.supprimerLivraisonEnCours(idLivraison);
                     livreur.ajouterLivraisonEffectuee(livraison);
                     return "DELIVERED_OK " + String.valueOf(idLivraison);
@@ -326,13 +330,16 @@ public class GestionnaireLivraisons implements GestionnaireEvenement {
                 int idLivraison = Integer.parseInt(argId);
                 Livraison livraison = livreur.rechercherLivraisonEnCours(idLivraison);
                 if (livraison != null) {
+
                     livreur.supprimerLivraisonEnCours(idLivraison);
                     boolean possible = livraison.nouvelleTentative();
                     if (possible) {
+                        livraison.setStatut(Statut.EN_ATTENTE);
                         this.livraisonsAEffectuer.ajouter(livraison);
                         return "FAILED_CONTINUE " + String.valueOf(idLivraison);
                     } else {
                         this.livraisonsEchouees.ajouter(livraison);
+                        livraison.setStatut(Statut.ECHOUEE);
                         return "FAILED_ABORT " + String.valueOf(idLivraison);
                     }
                 } else {
