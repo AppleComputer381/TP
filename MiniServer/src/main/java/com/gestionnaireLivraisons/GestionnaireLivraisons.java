@@ -333,7 +333,7 @@ public class GestionnaireLivraisons implements GestionnaireEvenement {
                 if (livraison != null) {
 
                     livreur.supprimerLivraisonEnCours(idLivraison);
-                    boolean possible = livraison.nouvelleTentative();
+                    boolean possible = livraison.resteTentatives();
                     if (possible) {
                         livraison.setStatut(Statut.EN_ATTENTE);
                         this.livraisonsAEffectuer.ajouter(livraison);
